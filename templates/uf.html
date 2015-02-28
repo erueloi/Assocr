@@ -50,7 +50,7 @@
                 </thead>
                 <tbody>
                     {% for member in members %}
-                	 <tr data-link="">
+                	 <tr data-link="{% url 'member' uf.association.id uf.id member.id %}">
 	                    <td>{{ member.firstsurname }} {{ member.secondsurname }}, {{ member.name }}</td>
 	                    <td>{{ member.dni }}</td>
 	                    <td>{{ member.birthdaydate }}</td>

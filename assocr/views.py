@@ -116,3 +116,15 @@ def add_member(request, association_id, uf_id):
     context_dict = {'form':form, 'uf': unif}
     
     return render(request, 'add_member.html', context_dict)
+
+@login_required
+def member(request, association_id, uf_id, member_id):
+    context_dict = {}
+    try:
+        member = Member.objects.get(id=member_id)
+        context_dict['member'] = member
+           
+    except UF.DoesNotExist:
+        pass
+
+    return render(request, 'member.html', context_dict)
