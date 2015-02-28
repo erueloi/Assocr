@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+		<h4 class="page-header">
+            UF {{ uf.id }} - Alta Soci
+            <small>Empleni els camps corresponenti i guardi</small> 
+          </h4>
+          <!-- Info boxes -->
+         <div class="row">
+          	<div class="col-md-2">
+          	</div>
+            <div class="col-md-7">
+              <!-- general form elements -->
+              <div class="box box-primary">
+              <div class="box-header">
+                  <h3 class="box-title">Alta Soci</h3>
+                  
+                {% if form.errors %}
+                	<div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-ban"></i> Errors!</h4>
+                    {% for error in form.errors %}
+				    	 {{ error }} </br>
+				    {% endfor %}
+                  	</div>
+				{% endif %} 
+                  
+               </div><!-- /.box-header -->
+                <!-- form start -->
+               <form action="." method="post" role="form">
+               	{% csrf_token %}
+                  <div class="box-body">
+                    <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                      <label for="form.name.id_for_label">Nom</label></br>
+                      {% if form.name.errors %}<label class="control-label" for="form.name.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.name.errors|striptags }}</label>{% endif %}
+                      {{ form.name|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group {% if form.firstsurname.errors %}has-error{% endif %}">
+                      <label for="form.firstsurname.id_for_label">Primer Cognom</label></br>
+                      {% if form.firstsurname.errors %}<label class="control-label" for="form.firstsurname.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.firstsurname.errors|striptags }}</label>{% endif %}                      
+                      {{ form.firstsurname|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group {% if form.secondsurname.errors %}has-error{% endif %}">                      
+                      <label for="form.secondsurname.id_for_label">Segon Cognom</label></br>
+                      {% if form.secondsurname.errors %}<label class="control-label" for="form.secondsurname.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.secondsurname.errors|striptags }}</label>{% endif %}
+                      {{ form.secondsurname|add_class:"form-control" }}
+                    </div>
+                    <div class="form-group {% if form.dni.errors %}has-error{% endif %}">
+                      <label for="form.dni.id_for_label">DNI</label></br>
+                      {% if form.dni.errors %}<label class="control-label" for="form.dni.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.dni.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>	                   
+	                    {{ form.dni|add_class:"form-control"|attr:"placeholder:00000000A" }}
+                  	  </div>
+                    </div>
+                    <div class="form-group {% if form.birthdaydate.errors %}has-error{% endif %}">
+                      <label for="form.birthdaydate.id_for_label">Data de neixament</label></br>
+                      {% if form.birthdaydate.errors %}<label class="control-label" for="form.birthdaydate.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.birthdaydate.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	                    {{ form.birthdaydate|add_class:"form-control"|attr:"data-inputmask:'alias': 'mm/dd/yyyy'"|attr:"data-mask" }}	                    
+                  		</div>
+                    </div>
+                    <div class="form-group {% if form.adress.errors %}has-error{% endif %}">
+                      <label for="form.adress.id_for_label">Adreça</label></br>
+                      {% if form.adress.errors %}<label class="control-label" for="form.adress.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.adress.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
+	                    {{ form.adress|add_class:"form-control"|attr:"rows:3" }}
+                  	  </div>                      
+                    </div>
+                    <div class="form-group {% if form.postalcode.errors %}has-error{% endif %}">
+                      <label for="form.postalcode.id_for_label">Codi Postal</label></br>
+                      {% if form.postalcode.errors %}<label class="control-label" for="form.postalcode.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.postalcode.errors|striptags }}</label>{% endif %}
+                      {{ form.postalcode|add_class:"form-control" }}                      
+                    </div>
+                    <!-- select -->
+                    <div class="form-group" {% if form.city.errors %}has-error{% endif %}>
+                      <label for="form.city.id_for_label">Ciutat</label></br>
+                      {% if form.city.errors %}<label class="control-label" for="form.city.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.city.errors|striptags }}</label>{% endif %}
+                      {{ form.city|add_class:"form-control" }}                     
+                    </div>
+                     <!-- select -->
+                    <div class="form-group" {% if form.province.errors %}has-error{% endif %}>
+                      <label for="form.province.id_for_label">Provincia</label></br>
+                      {% if form.province.errors %}<label class="control-label" for="form.province.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.province.errors|striptags }}</label>{% endif %}
+                      {{ form.province|add_class:"form-control" }}                     
+                    </div>
+                     <!-- select -->
+                    <div class="form-group" {% if form.country.errors %}has-error{% endif %}>
+                      <label for="form.country.id_for_label">País</label></br>
+                      {% if form.country.errors %}<label class="control-label" for="form.country.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.country.errors|striptags }}</label>{% endif %}
+                      {{ form.country|add_class:"form-control" }}                     
+                    </div>
+                    <div class="form-group {% if form.telephone.errors %}has-error{% endif %}">
+                      <label for="form.telephone.id_for_label">Telèfon</label></br>
+                      {% if form.telephone.errors %}<label class="control-label" for="form.telephone.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.telephone.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>	                   
+	                    {{ form.telephone|add_class:"form-control" }}
+                  	  </div>
+                    </div>
+                    <div class="form-group {% if form.fcbmember.errors %}has-error{% endif %}">                      
+                      {% if form.fcbmember.errors %}<label class="control-label" for="form.fcbmember.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.fcbmember.errors|striptags }}</label>{% endif %}                  	                   
+	                  <label for="form.fcbmember.id_for_label"> Soci FCB?  
+	                    {{ form.fcbmember|add_class:"minimal" }}
+	                  </label> 
+                    </div>
+                    <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                      <label for="form.email.id_for_label">Email</label></br>
+                      {% if form.email.errors %}<label class="control-label" for="form.email.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.email.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>	                   
+	                    {{ form.email|add_class:"form-control" }}
+                  	  </div>
+                    </div>                                 
+                   </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                  	<div class="row">
+            			<div class="col-xs-8"> 
+            			</div><!-- /.col -->
+	            		<div class="col-xs-4">
+	              			<button type="submit" class="btn btn-primary btn-block btn-flat">Guardar</button>
+	            		</div><!-- /.col -->
+          			</div>                  	
+                  </div>
+                </form>
+              </div><!-- /.box -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix visible-sm-block"></div>            
+           	</div>
+       		<div class="col-md-3">
+          	</div>
+       </div><!-- /.row -->  
+       
+        <script>
+        	jQuery(function($) {
+        			$("#datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        			
+        			$("[data-mask]").inputmask();
+					})        	
+        </script>     
+       	
+{% endblock %}

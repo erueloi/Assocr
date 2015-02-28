@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+		<h4 class="page-header">
+            {{ association.name }} - Alta de una nova Unitat Familiar
+            <small>Empleni els camps corresponenti i guardi</small> 
+          </h4>
+          <!-- Info boxes -->
+         <div class="row">
+          	<div class="col-md-2">
+          	</div>
+            <div class="col-md-7">
+              <!-- general form elements -->
+              <div class="box box-primary">
+              <div class="box-header">
+                  <h3 class="box-title">Alta UF</h3>
+                  
+                {% if form.errors %}
+                	<div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-ban"></i> Errors!</h4>
+                    {% for error in form.errors %}
+				    	 {{ error|escape }} </br>
+				    {% endfor %}
+                  	</div>
+				{% endif %} 
+                  
+               </div><!-- /.box-header -->
+                <!-- form start -->
+               <form action="." method="post" role="form">
+               	{% csrf_token %}
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label for="currentaccount">Compte Corrent</label>
+                      <input type="text" class="form-control" id="currentaccount" name="currentaccount" placeholder="0000 00 0000 0000000000">
+                    </div>
+                    <!-- radio -->
+                    <div class="form-group">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="typequote" id="typequote1" value="1" checked>
+                          Normal - 30€
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="typequote" id="typequote2" value="2">
+                          Familiar - 36€
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="typequote" id="typequote3" value="3"/>
+                          Jubilat - 15€
+                        </label>
+                      </div>
+                    </div>
+                 </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                  	<div class="row">
+            			<div class="col-xs-8"> 
+            			</div><!-- /.col -->
+	            		<div class="col-xs-4">
+	              			<button type="submit" class="btn btn-primary btn-block btn-flat">Guardar</button>
+	            		</div><!-- /.col -->
+          			</div>                  	
+                  </div>
+                </form>
+              </div><!-- /.box -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix visible-sm-block"></div>            
+           	</div>
+       		<div class="col-md-3">
+          	</div>
+       </div><!-- /.row -->       
+       	
+{% endblock %}

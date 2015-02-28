@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block firstleftmenuname %}Llista Associacions{% endblock %}
+
+{% block firstleftmenu %} 
+	{% if associations %}
+	    {% for association in associations %}
+	    	<li><a href="{% url 'association' association.id %}"><i class="fa fa-circle-o"></i> {{ association.name }}</a></li>
+	     {% endfor %}
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+		<h4 class="page-header">
+            Associacions <a href="{% url 'add_association' %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Nova</a>
+            <small>Llistat d'associacion asociades a l'usuari adminstrador</small> 
+          </h4>
+          <!-- Info boxes -->
+          <div class="row">
+          	{% if associations %}
+	              {% for association in associations %}
+	              	 <div class="col-md-3 col-sm-6 col-xs-12">              
+		              <!-- small box -->
+		              <div class="small-box bg-red">
+		                <div class="inner">
+		                  <h2>
+		                    {{ association.name }}
+		                  </h2>
+		                  <p>
+		                    {{ association.city }}
+		                  </p>
+		                </div>
+		                <div class="icon">
+		                  <i class="ion ion-pie-graph"></i>
+		                </div>
+		                <a href="{% url 'association' association.id %}" class="small-box-footer">
+		                  Més informació <i class="fa fa-arrow-circle-right"></i>
+		                </a>
+		              </div>
+		            </div><!-- /.col -->
+	              {% endfor %}
+              {% else %}
+              	<strong>There are no Associacions present.</strong>
+       		  {% endif %}
+            
+            <!-- fix for small devices only -->
+            <div class="clearfix visible-sm-block"></div>
+       </div><!-- /.row -->
+          
+{% endblock %}
