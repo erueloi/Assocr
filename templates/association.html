@@ -9,10 +9,18 @@
 		     <!-- title row -->
           <div class="row">
             <div class="col-xs-12">
-              <h2 class="page-header">
-                <i class="fa fa-globe"></i> {{ association.name }} - <b>#{{ association.penyanumber }}</b>
-                <small class="pull-right"> Data Creació: 2/10/2007</small>
-              </h2>
+            	<div class="media">
+  					<div class="media-left">
+    					<a href="{{ association.url }}"><img class="media-object" src="{% if association.logotype %} {{ association.logotype.url }}{% endif %}" alt="logo" style="width: 64px; height: 64px;"></a>
+  					</div>
+  				<div class="media-body">
+    				<h2 class="page-header">
+                	{{ association.name }} - <b>#{{ association.penyanumber }}</b>
+                	<small class="pull-right"> Data Creació: 2/10/2007</small>
+              		</h2>
+				  </div>
+				</div>	
+              
             </div><!-- /.col -->
           </div>
           <!-- info row -->

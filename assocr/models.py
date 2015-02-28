@@ -2,7 +2,7 @@ from django.db import models
 
 class Association(models.Model):
     name = models.CharField(max_length=128)
-    logotype = models.ImageField(upload_to='profile_images', blank=True)
+    logotype = models.ImageField(upload_to='logos', blank=True)
     url = models.URLField()
     email = models.EmailField()
     penyanumber = models.IntegerField(default=0)

@@ -28,7 +28,7 @@ def association(request, association_id):
 def add_association(request):
     # A HTTP POST?
     if request.method == 'POST':
-        form = AssociationForm(request.POST)
+        form = AssociationForm(request.POST, request.FILES)
 
         # Have we been provided with a valid form?
         if form.is_valid():

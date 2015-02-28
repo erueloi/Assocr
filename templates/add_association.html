@@ -2,6 +2,8 @@
 
 {% load staticfiles %}
 
+{% load widget_tweaks %}
+
 {% block content %}
 
 		<h4 class="page-header">
@@ -30,62 +32,66 @@
                   
                </div><!-- /.box-header -->
                 <!-- form start -->
-               <form action="." method="post" role="form">
+               <form action="." method="post" role="form" enctype="multipart/form-data">
                	{% csrf_token %}
-                  <div class="box-body">
-                    <div class="form-group">
-                      <label for="name">Nom</label>
-                      <input type="text" class="form-control" id="name" name="name" placeholder="Escrigui el nom de l'Associació">
+                  <div class="box-body">                 
+                    <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                      <label for="form.name.id_for_label">Nom</label></br>
+                      {% if form.name.errors %}<label class="control-label" for="form.name.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.name.errors|striptags }}</label>{% endif %}
+                      {{ form.name|add_class:"form-control" }}
                     </div>
-                    <div class="form-group">
-                      <label for="email">Email</label>
+                    <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                      <label for="form.email.id_for_label">Email</label></br>
+                      {% if form.email.errors %}<label class="control-label" for="form.email.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.email.errors|striptags }}</label>{% endif %}
                       <div class="input-group">
-	                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-	                    <input type="text" class="form-control" placeholder="Correu electrònic" id="email" name="email">
-                  		</div>
+	                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>	                   
+	                    {{ form.email|add_class:"form-control" }}
+                  	  </div>
                     </div>
-                    <div class="form-group">
-                      <label for="penyanumber">Número Penya</label>
-                      <input type="text" class="form-control" id="penyanumber" name="penyanumber" placeholder="# Penya">
+                      <div class="form-group {% if form.penyanumber.errors %}has-error{% endif %}">
+                      <label for="form.penyanumber.id_for_label">Número Penya</label></br>
+                      {% if form.penyanumber.errors %}<label class="control-label" for="form.penyanumber.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.penyanumber.errors|striptags }}</label>{% endif %}
+                      {{ form.penyanumber|add_class:"form-control" }}
                     </div>
-                    <div class="form-group">
-                      <label for="adress">Adreça</label>
-                      <textarea class="form-control" rows="3" placeholder="Direcció física" id="adress" name="adress"></textarea>
+                     <div class="form-group {% if form.adress.errors %}has-error{% endif %}">
+                      <label for="form.adress.id_for_label">Adreça</label></br>
+                      {% if form.adress.errors %}<label class="control-label" for="form.adress.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.adress.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
+	                    {{ form.adress|add_class:"form-control"|attr:"rows:3" }}
+                  	  </div>                      
                     </div>
                     <!-- select -->
-                    <div class="form-group">
-                      <label for="city">Ciutat</label>
-                      <select class="form-control" id="city" name="city">
-                        <option>Lleida</option>
-                        <option>Barcelona</option>
-                        <option>Alpicat</option>
-                        <option>Belloc</option>
-                        <option>Raïmat</option>
-                      </select>
-                    </div>
-                   <!-- phone mask -->
-                  <div class="form-group">
-                    <label for="telephone">Telèfon:</label>
-                    <div class="input-group">
-                      <div class="input-group-addon">
-                        <i class="fa fa-phone"></i>
-                      </div>
-                      <input type="text" id="telephone" name="telephone" class="form-control" data-inputmask='"mask": "(999) 999-999"' data-mask/>
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
-                    <div class="form-group">
-                      <label for="url">Url</label>
+                    <div class="form-group" {% if form.city.errors %}has-error{% endif %}>
+                      <label for="form.city.id_for_label">Ciutat</label></br>
+                      {% if form.city.errors %}<label class="control-label" for="form.city.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.city.errors|striptags }}</label>{% endif %}
+                      {{ form.city|add_class:"form-control" }}                     
+                    </div> 
+                    <div class="form-group {% if form.telephone.errors %}has-error{% endif %}">
+                      <label for="form.telephone.id_for_label">Telèfon</label></br>
+                      {% if form.telephone.errors %}<label class="control-label" for="form.telephone.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.telephone.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>	                   
+	                    {{ form.telephone|add_class:"form-control" }}
+                  	  </div>
+                    </div>      
+                    <div class="form-group {% if form.url.errors %}has-error{% endif %}">
+                      <label for="form.url.id_for_label">Url</label></br>
+                      {% if form.url.errors %}<label class="control-label" for="form.url.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.url.errors|striptags }}</label>{% endif %}
                       <div class="input-group">
 	                    <span class="input-group-addon"><i class="fa fa-link"></i></span>
-	                    <input type="text" class="form-control" placeholder="Direcció Web" id="url" name="url">
-	                  </div>
-                  	</div>
-                    <div class="form-group">
-                      <label for="exampleInputFile">Logotip</label>
-                      <input type="file" id="exampleInputFile">
-                      <p class="help-block">Nomé format .png</p>
-                    </div>
-                  </div><!-- /.box-body -->
+	                    {{ form.url|add_class:"form-control" }}
+                  	  </div>                      
+                    </div>   
+                    <div class="form-group {% if form.logotype.errors %}has-error{% endif %}">
+                      <label for="form.logotype.id_for_label">Url</label></br>
+                      {% if form.logotype.errors %}<label class="control-label" for="form.logotype.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.logotype.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-link"></i></span>
+	                    {{ form.logotype|add_class:"form-control" }}
+	                    <p class="help-block">Nomé format .png</p>
+                  	  </div>                      
+                    </div>     
 
                   <div class="box-footer">
                   	<div class="row">
