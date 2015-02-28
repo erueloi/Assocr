@@ -4,6 +4,11 @@
 
 {% block sectionclass %}invoice{% endblock %}
 
+{% block breadcrumb %}
+	<li><a href="{% url 'association' uf.association.id %}">{{ uf.association.name }}</a></li>
+	<li class="active">UF{{ uf.id }}</li>
+{% endblock %}
+
 {% block content %}
 
 		     <!-- title row -->
