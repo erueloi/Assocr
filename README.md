@@ -1,0 +1,2 @@
+# Assocr
+Gestió d'associacions
