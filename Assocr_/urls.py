@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 )
 
 
+
 # UNDERNEATH your urlpatterns definition, add the following two lines:
 if settings.DEBUG:
     urlpatterns += patterns(

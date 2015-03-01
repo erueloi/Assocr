@@ -128,3 +128,10 @@ def member(request, association_id, uf_id, member_id):
         pass
 
     return render(request, 'member.html', context_dict)
+
+def page_not_found(request):
+    # Dict to pass to template, data could come from DB query
+    values_for_template = {}
+    return render(request,'404.html',values_for_template,status=404)
+ 
+
