@@ -18,7 +18,7 @@ class AssociationForm(forms.ModelForm):
     adress = forms.CharField(widget=forms.Textarea) 
     city = forms.ChoiceField(choices=CITYCHOICES, widget=forms.Select)  
     telephone = forms.IntegerField(max_value=999999999)
-    logotype = forms.ImageField()
+    logotype = forms.ImageField(required=False)
     url = forms.URLField() 
        # An inline class to provide additional information on the form.
     class Meta:
