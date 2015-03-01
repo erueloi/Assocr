@@ -91,29 +91,36 @@ def uf(request, association_id, uf_id):
     return render(request, 'uf.html', context_dict)
 
 @login_required
-def add_member(request, association_id, uf_id):
+def add_member(request, association_id, uf_id, member_id=None):
     
     try:
         unif = UF.objects.get(id=uf_id)
     except UF.DoesNotExist:
         unif = None
-                    
+        
+    if member_id:
+        editmember = Member.objects.get(id=member_id)
+    else:
+        editmember = None
+                        
     if request.method == 'POST':
-        form = MemberForm(request.POST)
-
+        form = MemberForm(request.POST, instance=editmember)        
         if form.is_valid():
             if unif:
-                member = form.save(commit=False)
-                member.uf = unif
-                member.save()
-               
-                return uf(request, association_id, uf_id)
+                mem = form.save(commit=False)
+                mem.uf = unif
+                mem.save()
+                
+                if member_id:
+                    return member(request, association_id, uf_id, member_id)
+                else:
+                    return uf(request, association_id, uf_id)
         else:
             print form.errors
     else:
-        form = MemberForm()
+        form = MemberForm(instance=editmember)
 
-    context_dict = {'form':form, 'uf': unif}
+    context_dict = {'form':form, 'uf': unif, 'member_id': member_id}
     
     return render(request, 'add_member.html', context_dict)
 

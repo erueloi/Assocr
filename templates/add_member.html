@@ -38,7 +38,7 @@
                   
                </div><!-- /.box-header -->
                 <!-- form start -->
-               <form action="." method="post" role="form">
+               <form action="{% if member_id %}{% url 'edit_member' uf.association.id uf.id member_id %}{% else %}.{% endif %}" method="post" role="form">
                	{% csrf_token %}
                   <div class="box-body">
                     <div class="form-group {% if form.name.errors %}has-error{% endif %}">

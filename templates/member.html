@@ -17,11 +17,12 @@
             <div class="col-xs-12">
             	<div class="media">
   					<div class="media-left">
-    					<a href="{{ association.url }}"><img class="media-object" src="{% if association.logotype %} {{ association.logotype.url }}{% endif %}" alt="logo" style="width: 64px; height: 64px;"></a>
+    					<a href="{{ association.url }}"><img class="media-object" src="{% if association.logotype %} {{ association.logotype.url }}{% endif %}" alt="logo" style="width: 128px; height: 128px;"></a>
   					</div>
   				<div class="media-body">
     				<h2 class="page-header">
                 	{{ member.name }} {{ member.firstsurname }} {{ member.secondsurname }}
+                	<a href="{% url 'edit_member' member.uf.association.id member.uf.id member.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Editar</a>
                 	<small class="pull-right"> Data Creació: 2/10/2007</small>
               		</h2>
 				  </div>
