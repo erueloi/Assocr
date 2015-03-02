@@ -28,7 +28,7 @@
           <!-- info row -->
           <div class="row invoice-info">
             <div class="col-sm-4 invoice-col">
-              Adreça
+              Dades:
               <address>
                 <strong>{{ association.name }}</strong><br>
                 {{ association.adress }}<br>
@@ -38,7 +38,7 @@
               </address>
             </div><!-- /.col -->
             <div class="col-sm-4 invoice-col">
-              Junta
+              Junta:
               <address>
                 <strong>President:</strong> Daniel Rovira Romà<br>
                 <strong>VicePresident:</strong> Eloi Aymerich Berenguer<br>
@@ -51,17 +51,18 @@
                 <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Socis</span>
-                  <span class="info-box-number">250</span>
+                  <span class="info-box-number">{{ totalmembers }}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
+              <a href="{% url 'add_uf' association.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Afegir UF</a>
             </div><!-- /.col -->
           </div><!-- /.row -->
-
+		  
           <!-- Table row -->
           <div class="row">
             <div class="col-xs-12 table-responsive">
-            <a href="{% url 'add_uf' association.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Afegir UF</a>
-              <table class="table table-hover">
+            </br>            
+              <table class="table table-bordered table-hover" id="ufs">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -77,8 +78,16 @@
 	                    <td>{{ uf.id }}</td>
 	                    <td>{{ uf.currentaccount }}</td>
 	                    <td>Soci {{ uf.id }}</td>
-	                    <td><span class="label label-success">Normal</span></td> <!-- {{ uf.typequote }} -->	                    
-	                    <td>3</td>	                 
+	                    <td>
+	                    	{% if uf.typequote == 1 %}
+	                    	<span class="label label-success">Normal</span>
+	                    	{% elif uf.typequote == 2 %}
+	                    	<span class="label label-primary">Familiar</span>
+	                    	{% elif uf.typequote == 3 %}
+	                    	<span class="label label-warning">Jubilat</span>
+	                    	{% endif %}
+	                    </td>	                    
+	                    <td>{{ uf.member_set.all.count }}</td>	                 
                   	 </tr>
                   {% endfor %}              
                 </tbody>
@@ -95,13 +104,16 @@
             </div>
           </div>
         </section><!-- /.content -->
-        <div class="clearfix"></div>
+        <div class="clearfix"></div>        
+
         
         <script>
         	jQuery(function($) {
 					$("tr[data-link]").click(function() {
 						window.location = this.dataset.link
 					});
+					
+					$("#ufs").dataTable();
 					})        	
         </script>
         

@@ -15,10 +15,17 @@ def association(request, association_id):
     context_dict = {}
     try:
         association = Association.objects.get(id=association_id)
-        ufs = UF.objects.filter(association=association)
+        ufs = UF.objects.filter(association=association)        
         context_dict['association'] = association
         context_dict['Ufs'] = ufs
-           
+        totalmembers = 0
+        for uf in ufs:
+            members = Member.objects.filter(uf=uf)
+            for member in members:
+                totalmembers = totalmembers + 1
+        
+        context_dict['totalmembers'] = totalmembers
+                  
     except Association.DoesNotExist:
         pass
 

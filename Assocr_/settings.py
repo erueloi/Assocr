@@ -69,30 +69,30 @@ WSGI_APPLICATION = 'Assocr_.wsgi.application'
 # # # Database
 # # # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 # # 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'assocr',
-        'USER': 'root',
-        'PASSWORD': 'Naieruvaryvalee',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
-    }
-}
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql', 
 #         'NAME': 'assocr',
 #         'USER': 'root',
-#         'PASSWORD': '',
+#         'PASSWORD': 'Naieruvaryvalee',
 #         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
 #         'PORT': '3306',
 #     }
 # }
+
+# Database
+# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'assocr',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

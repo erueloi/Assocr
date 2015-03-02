@@ -16,29 +16,38 @@
             <div class="col-xs-12">
               <h2 class="page-header">
                 <i class="fa fa-globe"></i> UF - <b>#{{ uf.id }}</b>
-                <small class="pull-right"> Data Creació: 2/10/2007</small>
+                {% if uf.typequote == 1 %}
+	            	<span class="label label-success pull-right">Normal</span>
+	            {% elif uf.typequote == 2 %}
+	                <span class="label label-primary pull-right">Familiar</span>
+	            {% elif uf.typequote == 3 %}
+	                 <span class="label label-warning pull-right">Jubilat</span>
+	            {% endif %}
+                <!--<small class="pull-right"> Data Creació: 2/10/2007</small>-->
               </h2>
             </div><!-- /.col -->
           </div>
           <!-- info row -->
           <div class="row invoice-info">
             <div class="col-sm-4 invoice-col">
+            <h4>
               Compte Corrent
               <address>
                 <strong>{{ uf.currentaccount }}</strong>
               </address>
+            </h4>
             </div><!-- /.col -->
             <div class="col-sm-4 invoice-col">
             </div><!-- /.col -->
-            <div class="col-sm-4 invoice-col">             
+            <div class="col-sm-4 invoice-col">  
+            	<a href="{% url 'add_member' idassociation uf.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Afegir Soci</a>           
             </div><!-- /.col -->
           </div><!-- /.row -->
 
           <!-- Table row -->
           <div class="row">
-            <div class="col-xs-12 table-responsive">
-              <a href="{% url 'add_member' idassociation uf.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Afegir Soci</a>        
-              <table class="table table-hover">
+            <div class="col-xs-12 table-responsive">              
+              <table class="table table-bordered table-hover" id="members">
                 <thead>
                   <tr>
                     <th>Nom</th>
@@ -79,6 +88,8 @@
 					$("tr[data-link]").click(function() {
 						window.location = this.dataset.link
 					});
+					
+					$("#members").dataTable();
 					})        	
         </script>
         
