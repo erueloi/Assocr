@@ -3,7 +3,6 @@
 {% load staticfiles %}
 
 {% block title %}Fitxa de la Unitat Familiar{% endblock %} 
-
 {% block titlepage %}Fitxa de la Unitat Familiar{% endblock %} 
 
 {% block sectionclass %}invoice{% endblock %}
@@ -45,7 +44,8 @@
             </div><!-- /.col -->
             <div class="col-sm-4 invoice-col">
             </div><!-- /.col -->
-            <div class="col-sm-4 invoice-col">  
+            <div class="col-sm-4 invoice-col"> 
+            	<a href="{% url 'edit_uf' uf.association.id uf.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Editar Unitat Familiar</a> 
             	<a href="{% url 'add_member' idassociation uf.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Afegir Soci</a>           
             </div><!-- /.col -->
           </div><!-- /.row -->

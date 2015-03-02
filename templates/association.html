@@ -58,6 +58,7 @@
                   <span class="info-box-number">{{ totalmembers }}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
+              <a href="{% url 'edit_association' association.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Editar Associació</a>
               <a href="{% url 'add_uf' association.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Afegir Unitat Familiar</a>
             </div><!-- /.col -->
           </div><!-- /.row -->

@@ -4,7 +4,29 @@
 
 {% load widget_tweaks %}
 
-{% block breadcrumb %}<li class="active">Alta Associació </li>{% endblock %}
+{% block title %}
+	{% if association_id %}	
+		Edició Associació
+	{% else %}
+		Alta Associació
+	{% endif %}
+{% endblock %}
+{% block titlepage %}
+	{% if association_id %}	
+		Edició Associació
+	{% else %}
+		Alta Associació
+	{% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+	{% if association_id %}
+		<li><a href="{% url 'association' association_id %}">{{ form.name.value }}</a></li>
+		<li class="active">Editar Associació</li>		
+	{% else %}
+		<li class="active">Alta Associació </li>
+	{% endif %}
+{% endblock %}
 
 {% block content %}
 
@@ -84,9 +106,13 @@
 	                    <span class="input-group-addon"><i class="fa fa-link"></i></span>
 	                    {{ form.url|add_class:"form-control" }}
                   	  </div>                      
-                    </div>   
+                    </div>  
+                  
                     <div class="form-group {% if form.logotype.errors %}has-error{% endif %}">
-                      <label for="form.logotype.id_for_label">Url</label></br>
+                      {% if association_id %}
+                    	<a href="{{ form.url.value }}"><img class="media-object" src="{% if url_image %} {{ url_image }} {% else %} {% static "images/nologo.png" %} {% endif %}" alt="logo" style="width: 64px; height: 64px;"></a>
+                      {% endif %}
+                      <label for="form.logotype.id_for_label">Logotip</label></br>
                       {% if form.logotype.errors %}<label class="control-label" for="form.logotype.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.logotype.errors|striptags }}</label>{% endif %}
                       <div class="input-group">
 	                    <span class="input-group-addon"><i class="fa fa-link"></i></span>

@@ -2,6 +2,10 @@
 
 {% load staticfiles %}
 
+{% block title %}Llista d'associacions{% endblock %} 
+
+{% block titlepage %}Llista d'associacions{% endblock %} 
+
 {% block firstleftmenuname %}Llista Associacions{% endblock %}
 
 {% block firstleftmenu %} 
@@ -34,7 +38,7 @@
 		                  </p>
 		                </div>
 		                <div class="icon">
-		                	<img class="media-object ion" src="{% if association.logotype %} {{ association.logotype.url }} {% else %} {% static "images/nologo.png" %} {% endif %}" alt="logo" style="width: 64px; height: 64px;">	
+		                	<img class="media-object ion img-circle" src="{% if association.logotype %} {{ association.logotype.url }} {% else %} {% static "images/nologo.png" %} {% endif %}" alt="logo" style="width: 64px; height: 64px;">	
 		                  <!--<i class="ion ion-pie-graph"></i>-->
 		                </div>
 		                <a href="{% url 'association' association.id %}" class="small-box-footer">

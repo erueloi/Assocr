@@ -32,53 +32,65 @@ def association(request, association_id):
     return render(request, 'association.html', context_dict)
 
 @login_required
-def add_association(request):
-    # A HTTP POST?
+def add_association(request, association_id=None):
+    context_dict = {}
+        
+    if association_id:
+        editassociation = Association.objects.get(id=association_id)
+        if editassociation.logotype:
+            context_dict['url_image'] = editassociation.logotype.url
+    else:
+        editassociation = None
+    
     if request.method == 'POST':
-        form = AssociationForm(request.POST, request.FILES)
+        form = AssociationForm(request.POST, request.FILES, instance=editassociation)
 
-        # Have we been provided with a valid form?
         if form.is_valid():
-            # Save the new category to the database.
             form.save(commit=True)
-
-            # Now call the index() view.
-            # The user will be shown the homepage.
-            return index(request)
+            if association_id:
+                 return association(request, association_id)
+            else:
+                return index(request)            
         else:
-            # The supplied form contained errors - just print them to the terminal.
             print form.errors
     else:
-        # If the request was not a POST, display the form to enter details.
-        form = AssociationForm()
+        form = AssociationForm(instance=editassociation)
 
-    # Bad form (or form details), no form supplied...
-    # Render the form with error messages (if any).
-    return render(request, 'add_association.html', {'form': form})
+    context_dict['form'] = form
+    context_dict['association_id'] = association_id
+    return render(request, 'add_association.html', context_dict)
 
 @login_required
-def add_uf(request, association_id):
+def add_uf(request, association_id, uf_id=None):
 
     try:
         assoc = Association.objects.get(id=association_id)
     except Association.DoesNotExist:
-                assoc = None
+        assoc = None
+        
+    if uf_id:
+        edituf = UF.objects.get(id=uf_id)
+    else:
+        edituf = None
 
     if request.method == 'POST':
-        form = UFForm(request.POST)
+        form = UFForm(request.POST, instance=edituf)
         if form.is_valid():
             if assoc:
-                uf = form.save(commit=False)
-                uf.association = assoc
-                uf.save()
-                # probably better to use a redirect here.
-                return association(request, association_id)
+                objUf = form.save(commit=False)
+                objUf.association = assoc
+                objUf.save()
+                
+                if uf_id:
+                    return uf(request, association_id, uf_id)
+                else:
+                   return association(request, association_id)
         else:
             print form.errors
     else:
-        form = UFForm()
-
-    context_dict = {'form':form, 'association': assoc}
+        form = UFForm(instance=edituf, initial={'typequote': '1'})
+        
+    context_dict = {'form':form, 'association': assoc, 'uf_id': uf_id}
 
     return render(request, 'add_uf.html', context_dict)
 

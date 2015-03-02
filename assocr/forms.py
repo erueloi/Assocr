@@ -10,6 +10,12 @@ CITYCHOICES = (
                ('Raimat', 'Raimat'),
                )
 
+TYPEQUOTECHOICES = (
+               ('1', 'Normal - 30'),
+               ('2', 'Familiar - 36'),
+               ('3', 'Jubilat - 15'),
+               )
+
 
 class AssociationForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Escrigui el seu Nom")
@@ -27,6 +33,8 @@ class AssociationForm(forms.ModelForm):
         fields = ('name', 'email', 'penyanumber', 'adress', 'city', 'telephone', 'logotype', 'url')
         
 class UFForm(forms.ModelForm):
+    currentaccount = forms.CharField(max_length=20)
+    typequote = forms.ChoiceField(choices=TYPEQUOTECHOICES, widget=forms.RadioSelect) 
        # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model

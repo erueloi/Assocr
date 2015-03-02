@@ -2,9 +2,32 @@
 
 {% load staticfiles %}
 
+{% load widget_tweaks %}
+
+{% block title %}
+	{% if uf_id %}	
+		Edició Unitat Familiar
+	{% else %}
+		Alta Unitat Familiar
+	{% endif %}
+{% endblock %}
+{% block titlepage %}
+	{% if uf_id %}	
+		Edició Unitat Familiar
+	{% else %}
+		Alta Unitat Familiar
+	{% endif %}
+{% endblock %}
+
 {% block breadcrumb %}
 	<li><a href="{% url 'association' association.id %}">{{ association.name }}</a></li>
-	<li class="active">Alta Unitat Familiar</li>
+	{% if uf_id %}
+		<li><a href="{% url 'uf' association.id uf_id %}">UF{{ uf_id }}</a></li>
+		<li class="active">Editar</li>		
+	{% else %}
+		<li class="active">Alta Unitat Familiar</li>
+
+	{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -35,33 +58,21 @@
                   
                </div><!-- /.box-header -->
                 <!-- form start -->
-               <form action="." method="post" role="form">
+               <form action="{% if uf_id %}{% url 'edit_uf' association.id uf_id %}{% else %}.{% endif %}" method="post" role="form">
                	{% csrf_token %}
                   <div class="box-body">
-                    <div class="form-group">
-                      <label for="currentaccount">Compte Corrent</label>
-                      <input type="text" class="form-control" id="currentaccount" name="currentaccount" placeholder="0000 00 0000 0000000000">
-                    </div>
+                  	<div class="form-group {% if form.currentaccount.errors %}has-error{% endif %}">
+                      <label for="form.currentaccount.id_for_label">Compte Corrent</label></br>
+                      {% if form.currentaccount.errors %}<label class="control-label" for="form.currentaccount.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.currentaccount.errors|striptags }}</label>{% endif %}
+                      {{ form.currentaccount|add_class:"form-control" }}
+                    </div>                  
                     <!-- radio -->
                     <div class="form-group">
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="typequote" id="typequote1" value="1" checked>
-                          Normal - 30€
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="typequote" id="typequote2" value="2">
-                          Familiar - 36€
-                        </label>
-                      </div>
-                      <div class="radio">
-                        <label>
-                          <input type="radio" name="typequote" id="typequote3" value="3"/>
-                          Jubilat - 15€
-                        </label>
-                      </div>
+                     {% for radio in form.typequote %}
+						<div class="radio">
+    					{{ radio }}€
+						</div>
+					 {% endfor %}
                     </div>
                  </div><!-- /.box-body -->
 

@@ -9,8 +9,7 @@
 	<li><a href="{% url 'uf' uf.association.id uf.id %}">UF{{ uf.id }}</a></li>
 	{% if member_id %}
 		<li><a href="{% url 'member' uf.association.id uf.id member_id %}">{{ form.name.value }} {{ form.firstsurname.value }} {{ form.secondsurname.value }}</a></li>
-		<li class="active">Editar</li>
-		
+		<li class="active">Editar</li>		
 	{% else %}
 		<li class="active">Alta Soci</li>
 	{% endif %}
