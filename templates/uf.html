@@ -2,6 +2,10 @@
 
 {% load staticfiles %}
 
+{% block title %}Fitxa de la Unitat Familiar{% endblock %} 
+
+{% block titlepage %}Fitxa de la Unitat Familiar{% endblock %} 
+
 {% block sectionclass %}invoice{% endblock %}
 
 {% block breadcrumb %}
@@ -16,13 +20,15 @@
             <div class="col-xs-12">
               <h2 class="page-header">
                 <i class="fa fa-globe"></i> UF - <b>#{{ uf.id }}</b>
+                <span class="pull-right">Tipus de Quota: 
                 {% if uf.typequote == 1 %}
-	            	<span class="label label-success pull-right">Normal</span>
+	            	 <span class="label label-success">Normal</span>
 	            {% elif uf.typequote == 2 %}
-	                <span class="label label-primary pull-right">Familiar</span>
+	                <span class="label label-primary">Familiar</span>
 	            {% elif uf.typequote == 3 %}
-	                 <span class="label label-warning pull-right">Jubilat</span>
+	                 <span class="label label-warning">Jubilat</span>
 	            {% endif %}
+	            </span>
                 <!--<small class="pull-right"> Data Creació: 2/10/2007</small>-->
               </h2>
             </div><!-- /.col -->
