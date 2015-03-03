@@ -2,7 +2,7 @@
 from django.conf.urls import patterns, url
 from assocr import views
 from django.contrib.auth.decorators import login_required
-from assocr.views import MembersExport
+from assocr.views import MembersExport, MemberImport, MemberProcessImport
 
 urlpatterns = patterns('',
         url(r'^$', views.index, name='index'),
@@ -16,6 +16,13 @@ urlpatterns = patterns('',
         url(r'^association/(?P<association_id>[\w\-]+)/uf/(?P<uf_id>[\w\-]+)/member/(?P<member_id>[\w\-]+)/$', views.member, name='member'),
         url(r'^association/(?P<association_id>[\w\-]+)/uf/(?P<uf_id>[\w\-]+)/member/(?P<member_id>[\w\-]+)/edit/$', views.add_member, name='edit_member'),
         url(r'^association/(?P<association_id>[\w\-]+)/export/$', login_required(MembersExport.as_view()), name='members_export'),
+        )
+
+#export - import
+urlpatterns += patterns('',
+        url(r'^association/(?P<association_id>[\w\-]+)/export/$', login_required(MembersExport.as_view()), name='members_export'),
+        url(r'^association/(?P<association_id>[\w\-]+)/import/$', login_required(MemberImport.as_view()), name='members_import'),
+        url(r'^association/(?P<association_id>[\w\-]+)/process_import/$',     login_required(MemberProcessImport.as_view()), name='members_process_import'),
         )
 
 #handler404 = views.page_not_found
