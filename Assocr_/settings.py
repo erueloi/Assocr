@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'registration',
     'widget_tweaks',
+    'import_export',
     'assocr'
 )
 

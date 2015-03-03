@@ -1,4 +1,5 @@
 from django.db import models
+from import_export import resources
 
 class Association(models.Model):
     name = models.CharField(max_length=128)
@@ -41,5 +42,9 @@ class Member(models.Model):
  
     def __unicode__(self):
         return self.name + ' ' + self.firstsurname
+    
+class MemberResource(resources.ModelResource):
+    class Meta:
+        model = Member
 
 

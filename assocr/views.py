@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from assocr.forms import AssociationForm, UFForm, MemberForm
-from assocr.models import Association, UF, Member
+from assocr.models import Association, UF, Member, MemberResource
+from django.views.generic import View
+from django.http import HttpResponse
 
 @login_required
 def index(request):
@@ -17,14 +19,8 @@ def association(request, association_id):
         association = Association.objects.get(id=association_id)
         ufs = UF.objects.filter(association=association)        
         context_dict['association'] = association
-        context_dict['Ufs'] = ufs
-        totalmembers = 0
-        for uf in ufs:
-            members = Member.objects.filter(uf=uf)
-            for member in members:
-                totalmembers = totalmembers + 1
-        
-        context_dict['totalmembers'] = totalmembers
+        context_dict['Ufs'] = ufs     
+        context_dict['totalmembers'] = Member.objects.all().filter(uf=ufs).count
                   
     except Association.DoesNotExist:
         pass
@@ -159,5 +155,15 @@ def page_not_found(request):
     # Dict to pass to template, data could come from DB query
     values_for_template = {}
     return render(request,'404.html',values_for_template,status=404)
+
+class MembersExport(View):
+
+    def get(self, *args, **kwargs ):
+        association = Association.objects.get(id=self.kwargs['association_id'])
+        ufs = UF.objects.filter(association=association)
+        dataset = MemberResource().export(Member.objects.all().filter(uf=ufs))
+        response = HttpResponse(dataset.xls, content_type="xls")
+        response['Content-Disposition'] = 'attachment; filename=LlistatSocis_' + association.name +'.xls'
+        return response
  
 

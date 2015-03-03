@@ -1,6 +1,8 @@
 # from django.conf import settings
 from django.conf.urls import patterns, url
 from assocr import views
+from django.contrib.auth.decorators import login_required
+from assocr.views import MembersExport
 
 urlpatterns = patterns('',
         url(r'^$', views.index, name='index'),
@@ -13,6 +15,7 @@ urlpatterns = patterns('',
         url(r'^association/(?P<association_id>[\w\-]+)/uf/(?P<uf_id>[\w\-]+)/add_member/$', views.add_member, name='add_member'),
         url(r'^association/(?P<association_id>[\w\-]+)/uf/(?P<uf_id>[\w\-]+)/member/(?P<member_id>[\w\-]+)/$', views.member, name='member'),
         url(r'^association/(?P<association_id>[\w\-]+)/uf/(?P<uf_id>[\w\-]+)/member/(?P<member_id>[\w\-]+)/edit/$', views.add_member, name='edit_member'),
+        url(r'^association/(?P<association_id>[\w\-]+)/export/$', login_required(MembersExport.as_view()), name='members_export'),
         )
 
 #handler404 = views.page_not_found
