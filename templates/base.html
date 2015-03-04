@@ -358,9 +358,9 @@
         <!-- Messages -->
 		<section class="content-header">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-2">
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-8">
 					{% if messages %}
 						{% for message in messages %}
 							{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
@@ -369,11 +369,32 @@
 						            <h4><i class="icon fa fa-check"></i> Alert!</h4>
 						            {{ message }}
 								</div>
-							{% endif %}		
+							{% endif %}
+							{% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+								<div class="alert alert-warning alert-dismissable">
+						        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						            <h4><i class="icon fa fa-warning"></i> Alert!</h4>
+						            {{ message }}
+								</div>
+							{% endif %}
+							{% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+								<div class="alert alert-info alert-dismissable">
+						        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						            <h4><i class="icon fa fa-info"></i> Alert!</h4>
+						            {{ message }}
+								</div>
+							{% endif %}	
+							{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+								<div class="alert alert-danger alert-dismissable">
+						        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+						            {{ message }}
+								</div>
+							{% endif %}				
 						{% endfor %}
 					{% endif %}
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 				</div>	
 			</div>		
 		</section>

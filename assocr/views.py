@@ -182,8 +182,7 @@ import tempfile
   
 class MemberImport(View):
     model = Member
-    from_encoding = "utf-8"
-    #context['association_id'] = 2
+    from_encoding = "utf-8"  
 
     #: import / export formats
     DEFAULT_FORMATS = (
@@ -198,7 +197,7 @@ class MemberImport(View):
     formats = DEFAULT_FORMATS
     #: template for import view
     import_template_name = 'members/import.html'
-    resource_class = None
+    resource_class = MemberResource
 
     def get_import_formats(self):
         """
@@ -228,7 +227,8 @@ class MemberImport(View):
         resource = self.get_import_resource_class()()
 
         context = {}
-
+        association = Association.objects.get(id=self.kwargs['association_id'])
+        context['association'] = association
         import_formats = self.get_import_formats()
         form = ImportForm(import_formats,
                           self.request.POST or None,
@@ -281,7 +281,9 @@ class MemberImport(View):
         resource = self.get_import_resource_class()()
 
         context = {}
-
+        association = Association.objects.get(id=self.kwargs['association_id'])
+        context['association'] = association
+        
         import_formats = self.get_import_formats()
         form = ImportForm(import_formats,
                           self.request.POST or None,
@@ -340,9 +342,7 @@ class MemberProcessImport(View):
     formats = DEFAULT_FORMATS
     #: template for import view
     import_template_name = 'members/import.html'
-    resource_class = None
-
-
+    resource_class = MemberResource
 
     def get_import_formats(self):
         """
@@ -365,8 +365,9 @@ class MemberProcessImport(View):
     def post(self, *args, **kwargs ):
         '''
         Perform the actual import action (after the user has confirmed he
-    wishes to import)
+        wishes to import)
         '''
+        association = Association.objects.get(id=self.kwargs['association_id'])
         opts = self.model._meta
         resource = self.get_import_resource_class()()
 
@@ -385,7 +386,7 @@ class MemberProcessImport(View):
             if not input_format.is_binary() and self.from_encoding:
                 data = force_text(data, self.from_encoding)
             dataset = input_format.create_dataset(data)
-
+            
             result = resource.import_data(dataset, dry_run=False,
                                  raise_errors=True)
 
@@ -414,6 +415,6 @@ class MemberProcessImport(View):
             messages.success(self.request, success_message)
             import_file.close()
                 
-            id = 2  
+            id = association.id  
             url = reverse('assocr.views.association', args=(id,))
             return HttpResponseRedirect(url)

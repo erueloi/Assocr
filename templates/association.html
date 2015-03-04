@@ -74,7 +74,7 @@
                   <tr>
                     <th>#</th>
                     <th>Compte Corrent</th>
-                    <th>Nom</th>
+                    <th>Família</th>
                     <th>Tipus</th>
                     <th>Núm Membres</th>
                   </tr>
@@ -84,7 +84,11 @@
                 	 <tr data-link="{% url 'uf' association.id uf.id %}">
 	                    <td>{{ uf.id }}</td>
 	                    <td>{{ uf.currentaccount }}</td>
-	                    <td>Soci {{ uf.id }}</td>
+	                    <td>
+	                    {% for member in uf.member_set.all %}
+	                    	{% if forloop.first %} {{ member.firstsurname }} {{ member.secondsurname }} {% endif %}
+	                    {% endfor %}	
+	                    </td>
 	                    <td>
 	                    	{% if uf.typequote == 1 %}
 	                    	<span class="label label-success">Normal</span>

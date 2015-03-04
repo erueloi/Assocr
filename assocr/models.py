@@ -1,5 +1,5 @@
 from django.db import models
-from import_export import resources
+from import_export import resources, fields
 
 class Association(models.Model):
     name = models.CharField(max_length=128)
@@ -23,28 +23,50 @@ class UF(models.Model):
  
     def __unicode__(self):
         return self.id
-#     
+     
 class Member(models.Model):
     uf = models.ForeignKey(UF)
     name = models.CharField(max_length=128)
     firstsurname = models.CharField(max_length=128)
     secondsurname = models.CharField(max_length=128)
-    dni = models.CharField(max_length=9)
+    dni = models.CharField(max_length=9, blank=True)
     birthdaydate = models.DateField()
-    adress = models.CharField(max_length=256)
-    postalcode = models.IntegerField()
-    city = models.CharField(max_length=128)
-    province = models.CharField(max_length=128)
-    country = models.CharField(max_length=128)
-    telephone = models.IntegerField()
+    adress = models.CharField(max_length=256, blank=True)
+    postalcode = models.IntegerField(default=0, null=True)
+    city = models.CharField(max_length=128, blank=True)
+    province = models.CharField(max_length=128, blank=True)
+    country = models.CharField(max_length=128, blank=True)
+    telephone = models.IntegerField(default=0, null=True)
     fcbmember = models.BooleanField(default=False)
-    email = models.EmailField()
- 
+    email = models.EmailField(blank=True)
+  
     def __unicode__(self):
         return self.name + ' ' + self.firstsurname
     
-class MemberResource(resources.ModelResource):
+class MemberResource(resources.ModelResource):  
     class Meta:
         model = Member
+        #fields = ('uf__currentaccount', )
+        export_order = ('id', 'uf', 'name', 'firstsurname','secondsurname','dni',
+                  'birthdaydate','adress','postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'email', )       
+         
+    def before_import(self, dataset, dry_run):        
+        if 'uf' in dataset.headers:
+            for row in dataset.dict:
+                try:
+                    unif = UF.objects.get(id=int(row['uf']))
+                except UF.DoesNotExist:
+                    unif = None
+                    unif = UF(id=int(row['uf']))
+                    assoc = Association.objects.filter(penyanumber=int(row['penyanumber']))
+                    unif.association = assoc
+                    unif.state = 1
+                    unif.currentaccount = row['currentacount']
+                    unif.typequote = row['typequote']
+                    unif.save()
+             
+            
+             
+     
 
 
