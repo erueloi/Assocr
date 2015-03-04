@@ -354,8 +354,29 @@
             <li><a href="{% url 'index' %}"><i class="fa fa-dashboard"></i> Inici</a></li>
             {% block breadcrumb %}{% endblock %}
           </ol>
-        </section>
-
+        </section >
+        <!-- Messages -->
+		<section class="content-header">
+			<div class="row">
+				<div class="col-md-3">
+				</div>
+				<div class="col-md-6">
+					{% if messages %}
+						{% for message in messages %}
+							{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+								<div class="alert alert-success alert-dismissable">
+						        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						            <h4><i class="icon fa fa-check"></i> Alert!</h4>
+						            {{ message }}
+								</div>
+							{% endif %}		
+						{% endfor %}
+					{% endif %}
+				</div>
+				<div class="col-md-3">
+				</div>	
+			</div>		
+		</section>
         <!-- Main content -->
         <section class="{% block sectionclass %}content{% endblock %}">
         	{% block content %}{% endblock %}      	       

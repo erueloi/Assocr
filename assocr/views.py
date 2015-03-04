@@ -55,7 +55,8 @@ def add_association(request, association_id=None):
         if form.is_valid():
             form.save(commit=True)
             if association_id:
-                 return association(request, association_id)
+                messages.success(request, 'Associacio actualitzada correctament.')
+                return association(request, association_id)
             else:
                 return index(request)            
         else:
@@ -287,7 +288,6 @@ class MemberImport(View):
                           self.request.FILES or None)
 
         if self.request.POST and form.is_valid():
-            print form.cleaned_data['input_format']
             input_format = import_formats[
                 int(form.cleaned_data['input_format'])
             ]()
