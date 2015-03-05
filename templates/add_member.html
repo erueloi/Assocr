@@ -88,7 +88,7 @@
                       {% if form.birthdaydate.errors %}<label class="control-label" for="form.birthdaydate.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.birthdaydate.errors|striptags }}</label>{% endif %}
                       <div class="input-group">
 	                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-	                    {{ form.birthdaydate|add_class:"form-control"|attr:"data-inputmask:'alias': 'mm/dd/yyyy'"|attr:"data-mask" }}	                    
+	                    {{ form.birthdaydate|add_class:"form-control"|attr:"data-inputmask:'alias': 'dd/mm/yyyy'"|attr:"data-mask" }}	                    
                   		</div>
                     </div>
                     <div class="form-group {% if form.adress.errors %}has-error{% endif %}">
@@ -167,7 +167,7 @@
        
         <script>
         	jQuery(function($) {
-        			$("#datemask").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        			$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
         			
         			$("[data-mask]").inputmask();
 					})        	

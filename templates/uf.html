@@ -30,7 +30,7 @@
 				            <div class="col-sm-6">
 					            <h4>
 					              Tipus de Pagament:	</br>				              
-					                {% if uf.currentaccount == '0.0' %} <strong>En Efectiu </strong>{% else %} <strong>Compte Corrent: </strong>  {{ uf.currentaccount }} {% endif %}
+					                {% if uf.currentaccount == '0.0' or uf.currentaccount == '0' or uf.currentaccount == '' %} <strong>En Efectiu </strong>{% else %} <strong>Compte Corrent: </strong>  {{ uf.currentaccount }} {% endif %}
 					              
 					            </h4>
 				            </div><!-- /.col -->

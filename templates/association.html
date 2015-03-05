@@ -103,7 +103,7 @@
 					                  {% for uf in Ufs %}
 					                	 <tr data-link="{% url 'uf' association.id uf.id %}">
 						                    <td>{{ uf.id }}</td>
-						                    <td>{% if uf.currentaccount == '0.0' %} Efectiu {% else %} CC:  {{ uf.currentaccount }} {% endif %}</td>
+						                    <td>{% if uf.currentaccount == '0.0' or uf.currentaccount == '0' or uf.currentaccount == '' %} Efectiu {% else %} CC:  {{ uf.currentaccount }} {% endif %}</td>
 						                    <td>
 						                    {% for member in uf.member_set.all %}
 						                    	{% if forloop.first %} {{ member.firstsurname }} {{ member.secondsurname }} {% endif %}

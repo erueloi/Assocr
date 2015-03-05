@@ -55,6 +55,9 @@ class MemberResource(resources.ModelResource):
             for row in dataset.dict:
                 try:
                     unif = UF.objects.get(id=int(row['uf']))
+                    unif.currentaccount = row['currentacount']
+                    unif.typequote = row['typequote']
+                    unif.save()
                 except UF.DoesNotExist:
                     unif = None
                     unif = UF(id=int(row['uf']))

@@ -70,30 +70,30 @@ WSGI_APPLICATION = 'Assocr_.wsgi.application'
 # # # Database
 # # # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 # # 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql', 
-#         'NAME': 'assocr',
-#         'USER': 'root',
-#         'PASSWORD': 'Naieruvaryvalee',
-#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
-#     }
-# }
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'assocr',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'Naieruvaryvalee',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
+
+# Database
+# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', 
+#         'NAME': 'assocr',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -107,6 +107,16 @@ USE_I18N = True
 USE_L10N = False
 
 USE_TZ = True
+
+DATE_FORMAT = 'd/m/Y'
+
+DATE_INPUT_FORMATS = (
+            '%d/%m/%Y',  # '25/10/2006'
+            '%b %d %Y', '%b %d, %Y',            # 'Oct 25 2006', 'Oct 25, 2006'
+            '%d %b %Y', '%d %b, %Y',            # '25 Oct 2006', '25 Oct, 2006'
+             '%B %d %Y', '%B %d, %Y',            # 'October 25 2006', 'October 25, 2006'
+             '%d %B %Y', '%d %B, %Y',            # '25 October 2006', '25 October, 2006'
+                            )
 
 
 # Static files (CSS, JavaScript, Images)
