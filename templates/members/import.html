@@ -4,7 +4,7 @@
 
 {% load staticfiles %}
 
-{% block sectionclass %}invoice{% endblock %}
+{% block sectionclass %}content{% endblock %}
 
 {% block title %}Importar Socis{% endblock %} 
 
@@ -12,130 +12,144 @@
 
 {% block breadcrumb %}
 	<li><a href="{% url 'association' association.id %}">{{ association.name }}</a></li>
-	<li class="active">Alta Unitat Familiar</li>
+	<li class="active">Importar Socis</li>
 {% endblock %}
 
 {% block content %}
 	
 	  <div class="row">
             <div class="col-xs-12">
-				<h4 class="page-header">		  	
-			    	UF {{ uf.id }} - Alta Soci
-			        <small>Empleni els camps corresponenti i guardi</small> 
-			    </h4>
-			</div>
-	</div>
-	<div class="row">
-            <div class="col-xs-12">
-				{% if confirm_form %}
-				  <form action="{% url "members_process_import" 2 %}" method="POST">
-				    {% csrf_token %}
-				    {{ confirm_form.as_p }}
-				    <p>
-				      {% trans "Below is a preview of data to be imported. If you are satisfied with the results, click 'Confirm import'" %}
-				    </p>
-				    <div class="submit-row">
-				      <input type="submit" class="btn" name="confirm" value="{% trans "Confirm import" %}">
-				    </div>
-				  </form>
-				
-				{% else %}
-				  <form action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" enctype="multipart/form-data">
-				    {% csrf_token %}
-				
-				    <p>
-				      {% trans "This importer will import the following fields: " %}
-				      {% for f in fields  %}
-				        {% if forloop.counter0 %}
-				        , 
-				        {% endif %}
-				        <tt>{{ f }}</tt>
-				      {% endfor %}
-				    </p>
-				
-				    <fieldset class="module aligned">
-				      {% for field in form %}
-				        <div class="form-row">
-				          {{ field.errors }}
-				
-				          {{ field.label_tag }}
-				
-				          {{ field }}
-				
-				          {% if field.field.help_text %}
-				          <p class="help">{{ field.field.help_text|safe }}</p>
-				          {% endif %}
-				         </br>
-				        </div>
-				      {% endfor %}
-				    </fieldset>
-				
-				    <div class="submit-row">				  
-				      <input type="submit" class="btn pull-right" value="{% trans "Importar" %}">
-				    </div>
-				  </form>
-				{% endif %}
-				
-			</div>
-		</div>
-				
-				{% if result %}
-				    {% if result.has_errors %}
-				        <h2>{% trans "Errors" %}</h2>
-				        <ul>
-				            {% for error in result.base_errors  %}
-				                <li>{{ error.error }}</li>
-				            {% endfor %}
-				            {% for line, errors in result.row_errors %}
-				                {% for error in errors %}
-				                    <li>
-				                      {% trans "Line number" %}: {{ line }} - {{ error.error }}
-				                      <div class="traceback">{{ error.traceback|linebreaks }}</div>
-				                    </li>
-				                {% endfor %}
-				            {% endfor %}
-				        </ul>
-				    {% else %}
-				        <h2>
-				            {% trans "Preview" %}
-				        </h2>
-			<div class="row">
-            <div class="col-xs-12 table-responsive">
-				        <table class="table table-bordered table-hover">
-				        <thead>
-				          <tr>
-				            <th></th>
-				            {% for field in fields %}
-				              <th>{{ field }}</th>
-				            {% endfor %}
-				          </tr>
-				        </thead>
-				        {% for row in result.rows %}
-				            <tr>
-				                <td>
-				                {% if row.import_type == 'new' %}
-				                    {% trans "New" %}
-				                {% elif row.import_type == 'skip' %}
-				                    {% trans "Skipped" %}
-				                {% elif row.import_type == 'delete' %}
-				                    {% trans "Delete" %}
-				                {% elif row.import_type == 'update' %}
-				                    {% trans "Update" %}
-				                {% endif %}
-				                </td>
-				              {% for field in row.diff %}
-				              <td>
-				                  {{ field }}
-				              </td>
-				              {% endfor %}
-				            </tr>
-				        {% endfor %}
-				        </table>
-				    {% endif %}
-				{% endif %}
-		</div>
-	</div>
-	        </section><!-- /.content -->
+            	<div class="box box-primary">
+	                <div class="box-header">
+						<h4 class="page-header">		  	
+					    	Importar Socis a {{ association.name }} 
+					    </h4>
+					</div><!-- /.box-header -->
+					<div class="box-body">
+						<div class="row">
+				            <div class="col-md-12">
+								{% if confirm_form %}
+								  <form action="{% url "members_process_import" association.id %}" method="POST">
+								    {% csrf_token %}
+								    {{ confirm_form.as_p }}
+								    <p>
+								      {% trans "Below is a preview of data to be imported. If you are satisfied with the results, click 'Confirm import'" %}
+								    </p>
+								    <div class="submit-row">
+								      <input type="submit" class="btn pull-right" name="confirm" value="{% trans "Confirm import" %}">
+								    </div>
+								  </form>
+								{% else %}
+								  <form action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form" enctype="multipart/form-data">
+								    {% csrf_token %}								
+								    <p>
+								      {% trans "This importer will import the following fields: " %}
+								      {% for f in fields  %}
+								        {% if forloop.counter0 %}
+								        , 
+								        {% endif %}
+								        <tt>{{ f }}</tt>
+								      {% endfor %}
+								    </p>								
+								    <fieldset class="module aligned">
+								      {% for field in form %}
+								        <div class="form-row">
+								          {{ field.errors }}
+								
+								          {{ field.label_tag }}
+								
+								          {{ field }}
+								
+								          {% if field.field.help_text %}
+								          <p class="help">{{ field.field.help_text|safe }}</p>
+								          {% endif %}
+								         </br>
+								        </div>
+								      {% endfor %}
+								    </fieldset>								
+								    <div class="submit-row">				  
+								      <input type="submit" class="btn pull-right" value="{% trans "Importar" %}">
+								    </div>
+								  </form>
+								{% endif %}
+								{% if result %}
+								    {% if result.has_errors %}
+								        <h2>{% trans "Errors" %}</h2>
+								        <ul>
+								            {% for error in result.base_errors  %}
+								                <li>{{ error.error }}</li>
+								            {% endfor %}
+								            {% for line, errors in result.row_errors %}
+								                {% for error in errors %}
+								                    <li>
+								                      {% trans "Line number" %}: {{ line }} - {{ error.error }}
+								                      <div class="traceback">{{ error.traceback|linebreaks }}</div>
+								                    </li>
+								                {% endfor %}
+								            {% endfor %}
+								        </ul>	
+								{% else %}							   
+							</div><!-- /.col -->
+						</div> <!-- /.row -->	
+					</div> <!-- /.box body -->            
+            	</div><!-- /.box -->
+          	</div> <!-- /.col -->
+         </div> <!-- /.row -->	       
+        							       
+	    <div class="row">
+	    	 <div class="col-xs-12">
+            	<div class="box box-primary">
+            	 <div class="box-header">
+					<h3 class="box-title">Dades a importar</h3>
+					<div class="box-tools pull-right">
+	                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+	                </div>
+				 </div><!-- /.box-header -->
+				 <div class="box-body">
+				 	<div class="row">
+		            <div class="col-md-12 table-responsive">
+		            	<h2>
+			            {% trans "Vista Previa" %}
+			        	</h2>
+						<table class="table table-bordered table-hover">
+						        <thead>
+						          <tr>
+						            <th></th>
+						            {% for field in fields %}
+						              <th>{{ field }}</th>
+						            {% endfor %}
+						          </tr>
+						        </thead>
+						        {% for row in result.rows %}
+						            <tr>
+						                <td>
+						                {% if row.import_type == 'new' %}
+						                    {% trans "New" %}
+						                {% elif row.import_type == 'skip' %}
+						                    {% trans "Skipped" %}
+						                {% elif row.import_type == 'delete' %}
+						                    {% trans "Delete" %}
+						                {% elif row.import_type == 'update' %}
+						                    {% trans "Update" %}
+						                {% endif %}
+						                </td>
+							            {% for field in row.diff %}
+							            <td>
+							               {{ field }}
+							            </td>
+							            {% endfor %}
+						            </tr>
+						        {% endfor %}
+						        </table>
+						    {% endif %}
+						{% endif %}
+					</div><!-- /.col -->
+					</div> <!-- /.row -->	
+				 </div> <!-- /.box body -->  
+				</div><!-- /.box -->
+          	</div> <!-- /.col -->
+         </div> <!-- /.row -->	
+         
         <div class="clearfix"></div> 
         
 {% endblock %}

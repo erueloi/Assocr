@@ -13,9 +13,9 @@
 {% endblock %}
 {% block titlepage %}
 	{% if uf_id %}	
-		Edició Unitat Familiar
+		UF{{ uf_id }} - Edició Unitat Familiar
 	{% else %}
-		Alta Unitat Familiar
+		{{ association.name }} - Alta Unitat Familiar
 	{% endif %}
 {% endblock %}
 
@@ -30,13 +30,7 @@
 	{% endif %}
 {% endblock %}
 
-{% block content %}
-
-		<h4 class="page-header">
-            {{ association.name }} - Alta de una nova Unitat Familiar
-            <small>Empleni els camps corresponenti i guardi</small> 
-          </h4>
-          <!-- Info boxes -->
+{% block content %}		
          <div class="row">
           	<div class="col-md-2">
           	</div>

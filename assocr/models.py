@@ -58,7 +58,7 @@ class MemberResource(resources.ModelResource):
                 except UF.DoesNotExist:
                     unif = None
                     unif = UF(id=int(row['uf']))
-                    assoc = Association.objects.filter(penyanumber=int(row['penyanumber']))
+                    assoc = Association.objects.get(penyanumber=int(row['penyanumber']))
                     unif.association = assoc
                     unif.state = 1
                     unif.currentaccount = row['currentacount']

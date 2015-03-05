@@ -58,6 +58,7 @@ def add_association(request, association_id=None):
                 messages.success(request, 'Associacio actualitzada correctament.')
                 return association(request, association_id)
             else:
+                messages.success(request, 'Associacio afegida correctament.')
                 return index(request)            
         else:
             print form.errors
@@ -90,9 +91,11 @@ def add_uf(request, association_id, uf_id=None):
                 objUf.save()
                 
                 if uf_id:
+                    messages.success(request, 'Unitat Familiar actualitzada correctament.')
                     return uf(request, association_id, uf_id)
-                else:
-                   return association(request, association_id)
+                else:                    
+                    messages.success(request, 'Unitat Familiar afegida correctament.')
+                    return association(request, association_id)
         else:
             print form.errors
     else:
@@ -139,8 +142,10 @@ def add_member(request, association_id, uf_id, member_id=None):
                 mem.save()
                 
                 if member_id:
+                    messages.success(request, 'Soci actualitzada correctament.')
                     return member(request, association_id, uf_id, member_id)
                 else:
+                    messages.success(request, 'Soci afegit correctament.')
                     return uf(request, association_id, uf_id)
         else:
             print form.errors

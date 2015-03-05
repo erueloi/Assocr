@@ -5,7 +5,7 @@
 {% block title %}Fitxa de la Unitat Familiar{% endblock %} 
 {% block titlepage %}Fitxa de la Unitat Familiar{% endblock %} 
 
-{% block sectionclass %}invoice{% endblock %}
+{% block sectionclass %}content{% endblock %}
 
 {% block breadcrumb %}
 	<li><a href="{% url 'association' uf.association.id %}">{{ uf.association.name }}</a></li>
@@ -13,80 +13,97 @@
 {% endblock %}
 
 {% block content %}
-
-		     <!-- title row -->
-          <div class="row">
-            <div class="col-xs-12">
-              <h2 class="page-header">
-                <i class="fa fa-globe"></i> UF - <b>#{{ uf.id }}</b>
-                <span class="pull-right">Tipus de Quota: 
-                {% if uf.typequote == 1 %}
-	            	 <span class="label label-success">Normal</span>
-	            {% elif uf.typequote == 2 %}
-	                <span class="label label-primary">Familiar</span>
-	            {% elif uf.typequote == 3 %}
-	                 <span class="label label-warning">Jubilat</span>
-	            {% endif %}
-	            </span>
-                <!--<small class="pull-right"> Data Creació: 2/10/2007</small>-->
-              </h2>
-            </div><!-- /.col -->
+		<!-- Info row -->
+        <div class="row">
+            <div class="col-md-12">
+            	<div class="box box-primary">
+	                <div class="box-header with-border">
+	                  <h4>
+		                <i class="fa fa-globe"></i> UF - <b>#{{ uf.id }}</b> <a href="{% url 'edit_uf' uf.association.id uf.id %}" class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>		            
+		              </h4> 
+	                  <div class="box-tools pull-right">
+	                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+	                  </div>
+	                </div><!-- /.box-header -->
+	                <div class="box-body">
+	                	<div class="row">
+				            <div class="col-sm-6">
+					            <h4>
+					              Tipus de Pagament:	</br>				              
+					                {% if uf.currentaccount == '0.0' %} <strong>En Efectiu </strong>{% else %} <strong>Compte Corrent: </strong>  {{ uf.currentaccount }} {% endif %}
+					              
+					            </h4>
+				            </div><!-- /.col -->
+				            <div class="col-sm-3">
+				            </div><!-- /.col -->
+				            <div class="col-sm-3 pull-right">
+				            	<h4> 
+					            	Tipus de Quota:
+							        {% if uf.typequote == 1 %}
+						            	<span class="label label-success">Normal</span>
+						            {% elif uf.typequote == 2 %}
+						                <span class="label label-primary">Familiar</span>
+						            {% elif uf.typequote == 3 %}
+						                 <span class="label label-warning">Jubilat</span>
+						            {% endif %}
+					            </h4>
+				           	</div><!-- /.col -->
+				        </div><!-- /.row -->
+	            	</div> <!-- /.box body -->            
+            	</div><!-- /.box -->
+          	</div> <!-- /.col -->
           </div>
-          <!-- info row -->
-          <div class="row invoice-info">
-            <div class="col-sm-4 invoice-col">
-            <h4>
-              Compte Corrent
-              <address>
-                <strong>{{ uf.currentaccount }}</strong>
-              </address>
-            </h4>
-            </div><!-- /.col -->
-            <div class="col-sm-4 invoice-col">
-            </div><!-- /.col -->
-            <div class="col-sm-4 invoice-col"> 
-            	<a href="{% url 'edit_uf' uf.association.id uf.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Editar Unitat Familiar</a> 
-            	<a href="{% url 'add_member' idassociation uf.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Afegir Soci</a>           
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-
+         
           <!-- Table row -->
           <div class="row">
-            <div class="col-xs-12 table-responsive">              
-              <table class="table table-bordered table-hover" id="members">
-                <thead>
-                  <tr>
-                    <th>Nom</th>
-                    <th>DNI</th>
-                    <th>Data Neixament</th>
-                    <th>Ciutat</th>
-                    <th>Soci FCB</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for member in members %}
-                	 <tr data-link="{% url 'member' uf.association.id uf.id member.id %}">
-	                    <td>{{ member.firstsurname }} {{ member.secondsurname }}, {{ member.name }}</td>
-	                    <td>{{ member.dni }}</td>
-	                    <td>{{ member.birthdaydate }}</td>
-	                    <td>{{ member.city }}</td> <!-- {{ uf.typequote }} -->	                    
-	                    <td><span class="label label-success">SI</span></td>	                 
-                  	 </tr>
-                  {% endfor %}            
-                </tbody>
-              </table>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
+          	<div class="col-xs-12">
+          	 <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Membres</h3>
+                  <div class="box-tools">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body" style="display: block;">
+                	<div class="row">
+	                	<div class="col-xs-12"> 
+            				<a href="{% url 'add_member' idassociation uf.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Afegir Soci</a>           
+			            </div>
+			            <div class="col-xs-12 table-responsive" style="padding-top: 10px;">              
+			              <table class="table table-bordered table-hover" id="members">
+			                <thead>
+			                  <tr>
+			                    <th>Nom</th>
+			                    <th>DNI</th>
+			                    <th>Data Neixament</th>
+			                    <th>Ciutat</th>
+			                    <th>Soci FCB</th>
+			                  </tr>
+			                </thead>
+			                <tbody>
+			                    {% for member in members %}
+			                	 <tr data-link="{% url 'member' uf.association.id uf.id member.id %}">
+				                    <td>{{ member.firstsurname }} {{ member.secondsurname }}, {{ member.name }}</td>
+				                    <td>{{ member.dni }}</td>
+				                    <td>{{ member.birthdaydate }}</td>
+				                    <td>{{ member.city }}</td> <!-- {{ uf.typequote }} -->	                    
+				                    <td><span class="label label-success">SI</span></td>	                 
+			                  	 </tr>
+			                  {% endfor %}            
+			                </tbody>
+			              </table>
+			 			</div>	
+		 				<div class="row no-print">
+					    	<div class="col-xs-12">
+					        	<a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Imprimir Llistat Membres</a>
+					        </div>
+				    	</div>
+		 			</div> <!-- /.row -->
+ 				</div><!-- /.box-body -->
+              </div><!-- /.box -->
+          </div> <!-- /.col -->      
+          </div> <!-- /.row -->
 
-          <!-- this row will not appear when printing -->
-          <div class="row no-print">
-            <div class="col-xs-12">
-              <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-              <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-              <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
-            </div>
-          </div>
-        </section><!-- /.content -->
         <div class="clearfix"></div>
         
         <script>

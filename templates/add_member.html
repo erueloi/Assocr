@@ -4,6 +4,21 @@
 
 {% load widget_tweaks %}
 
+{% block title %}
+	{% if member_id %}	
+		Edició Soci
+	{% else %}
+		Alta Soci
+	{% endif %}
+{% endblock %}
+{% block titlepage %}
+	{% if member_id %}	
+		Edició Soci - {{ form.name.value }} {{ form.firstsurname.value }} {{ form.secondsurname.value }}
+	{% else %}
+		UF {{ uf.id }} - Alta Soci
+	{% endif %}
+{% endblock %}
+
 {% block breadcrumb %}
 	<li><a href="{% url 'association' uf.association.id %}">{{ uf.association.name }}</a></li>
 	<li><a href="{% url 'uf' uf.association.id uf.id %}">UF{{ uf.id }}</a></li>
@@ -17,10 +32,6 @@
 
 {% block content %}
 
-		<h4 class="page-header">
-            UF {{ uf.id }} - Alta Soci
-            <small>Empleni els camps corresponenti i guardi</small> 
-          </h4>
           <!-- Info boxes -->
          <div class="row">
           	<div class="col-md-2">
@@ -29,8 +40,11 @@
               <!-- general form elements -->
               <div class="box box-primary">
               <div class="box-header">
+              	{% if member_id %}
+              	  <h3 class="box-title">Edició Soci</h3>
+              	{% else %}
                   <h3 class="box-title">Alta Soci</h3>
-                  
+                {% endif %} 
                 {% if form.errors %}
                 	<div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

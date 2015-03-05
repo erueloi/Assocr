@@ -6,7 +6,7 @@
 
 {% block titlepage %}Fitxa del Soci{% endblock %} 
 
-{% block sectionclass %}invoice{% endblock %}
+{% block sectionclass %}content{% endblock %}
 
 {% block breadcrumb %}
 	<li><a href="{% url 'association' member.uf.association.id %}">{{ member.uf.association.name }}</a></li>
@@ -16,66 +16,62 @@
 
 {% block content %}
 
-		     <!-- title row -->
+		  <!-- title row -->
           <div class="row">
-            <div class="col-xs-12">
-            	<div class="media">
-  					<div class="media-left">
-    					<a href="{{ association.url }}"><img class="media-object" src="{% if association.logotype %} {{ association.logotype.url }} {% else %} {% static "images/noimage.png" %} {% endif %}" alt="logo" style="width: 128px; height: 128px;"></a>
-  					</div>
-  				<div class="media-body">
-    				<h2 class="page-header">
-                	{{ member.name }} {{ member.firstsurname }} {{ member.secondsurname }}
-                	<a href="{% url 'edit_member' member.uf.association.id member.uf.id member.id %}" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Editar</a>
-                	<!--<small class="pull-right"> Data Creació: 2/10/2007</small>-->
-              		</h2>
-				  </div>
-				</div>	              
+            <div class="col-md-12">
+				<div class="box box-warning">
+	                <div class="box-header">
+	                 <div class="media">
+  						<div class="media-left">
+    						<a href="{{ association.url }}"><img class="media-object" src="{% if association.logotype %} {{ association.logotype.url }} {% else %} {% static "images/noimage.png" %} {% endif %}" alt="logo" style="width: 128px; height: 128px;"></a>
+  						</div>
+	  					<div class="media-body">
+		    				<h2 class="page-header">
+		                	{{ member.name }} {{ member.firstsurname }} {{ member.secondsurname }}
+		                	<a href="{% url 'edit_member' member.uf.association.id member.uf.id member.id %}" class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
+		                	<!--<small class="pull-right"> Data Creació: 2/10/2007</small>-->
+		              		</h2>
+					  	</div>
+					 </div>
+	                </div><!-- /.box-header -->
+	                <div class="box-body">
+	                	 <!-- info row -->
+				          <div class="row">
+				          	<div class="col-sm-2">
+				          	</div>
+				            <div class="col-sm-6">
+					            <h4>
+					              <dl class="dl-horizontal">
+					                    <dt>DNI</dt>
+					                    <dd>{{ member.dni }}</dd>
+					                    <dt>Data Neixament</dt>
+					                    <dd>{{ member.birthdaydate }}</dd>
+					                    <dt>Correu Electònic</dt>
+					                    <dd>{{ member.email }}</dd>
+					                    <dt>Adreça</dt>
+					                    <dd>{{ member.adress }}</dd>
+					                    <dd>{{ member.postalcode }}, {{ member.city }} ({{ member.province }})</dd>
+					                    <dt>País</dt>
+					                    <dd>{{ member.country }}</dd>
+					                    <dt>Telèfon</dt>
+					                    <dd>{{ member.telephone }}</dd>
+					              	</dl>
+					              </h4>
+				             </div><!-- /.col -->
+				            <div class="col-sm-4 invoice-col">
+				          	</div><!-- /.col -->
+				       </div><!-- /.row -->
+				       <!-- this row will not appear when printing -->
+			          <div class="row no-print">
+			            <div class="col-xs-12">
+			              <a href="invoice-print.html" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Imprimir Fitxa</a>
+			            </div>
+			          </div>
+	            	</div> <!-- /.box body -->            
+            	</div><!-- /.box -->	              
             </div><!-- /.col -->
-          </div>
-          <!-- info row -->
-          <div class="row invoice-info">
-          	<div class="col-sm-2">
-          	</div>
-            <div class="col-sm-6">
-            <h4>
-              <dl class="dl-horizontal">
-                    <dt>DNI</dt>
-                    <dd>{{ member.dni }}</dd>
-                    <dt>Data Neixament</dt>
-                    <dd>{{ member.birthdaydate }}</dd>
-                    <dt>Correu Electònic</dt>
-                    <dd>{{ member.email }}</dd>
-                    <dt>Adreça</dt>
-                    <dd>{{ member.adress }}</dd>
-                    <dd>{{ member.postalcode }}, {{ member.city }} ({{ member.province }})</dd>
-                    <dt>País</dt>
-                    <dd>{{ member.country }}</dd>
-                    <dt>Telèfon</dt>
-                    <dd>{{ member.telephone }}</dd>
-              </dl>
-              </h4>
-             </div><!-- /.col -->
-            <div class="col-sm-4 invoice-col">
-              <!--<div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Socis</span>
-                  <span class="info-box-number">250</span>
-                </div><!-- /.info-box-content -->
-              <!--</div>--><!-- /.info-box -->
-            <!--</div>--><!-- /.col -->
-          </div><!-- /.row -->
-
-          <!-- this row will not appear when printing -->
-          <div class="row no-print">
-            <div class="col-xs-12">
-              <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-              <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-              <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
-            </div>
-          </div>
-        </section><!-- /.content -->
+          </div> 
+          
         <div class="clearfix"></div>
         
         <script>

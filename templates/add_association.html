@@ -13,7 +13,7 @@
 {% endblock %}
 {% block titlepage %}
 	{% if association_id %}	
-		Edició Associació
+		{{ form.name.value }} - Edició Associació
 	{% else %}
 		Alta Associació
 	{% endif %}
@@ -30,10 +30,6 @@
 
 {% block content %}
 
-		<h4 class="page-header">
-            Alta de una nova Associació
-            <small>Empleni els camps corresponenti i guardi</small> 
-          </h4>
           <!-- Info boxes -->
          <div class="row">
           	<div class="col-md-2">
@@ -41,9 +37,7 @@
             <div class="col-md-7">
               <!-- general form elements -->
               <div class="box box-primary">
-              <div class="box-header">
-                  <h3 class="box-title">Alta</h3>
-                  
+              <div class="box-header">                  
                 {% if form.errors %}
                 	<div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
