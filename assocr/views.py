@@ -423,3 +423,15 @@ class MemberProcessImport(View):
             id = association.id  
             url = reverse('assocr.views.association', args=(id,))
             return HttpResponseRedirect(url)
+
+@login_required
+def calendar(request, association_id):
+    context_dict = {}
+    try:
+        association = Association.objects.get(id=association_id)        
+        context_dict['association'] = association
+                  
+    except Association.DoesNotExist:
+        pass
+
+    return render(request, 'calendar.html', context_dict)

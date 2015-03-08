@@ -26,11 +26,12 @@ class AssociationForm(forms.ModelForm):
     telephone = forms.IntegerField(max_value=999999999)
     logotype = forms.ImageField(required=False)
     url = forms.URLField() 
+    idcalendar = forms.CharField(max_length=128) 
        # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Association
-        fields = ('name', 'email', 'penyanumber', 'adress', 'city', 'telephone', 'logotype', 'url')
+        fields = ('name', 'email', 'penyanumber', 'adress', 'city', 'telephone', 'logotype', 'url', 'idcalendar')
         
 class UFForm(forms.ModelForm):
     currentaccount = forms.CharField(max_length=20)

@@ -321,12 +321,15 @@
               </ul>
             </li>
             
+            {% block calendarmenu %}
             <li>
               <a href="pages/calendar.html">
                 <i class="fa fa-calendar"></i> <span>Calendar</span>
                 <small class="label pull-right bg-red">3</small>
               </a>
             </li>
+            {% endblock %}
+            
             <li>
               <a href="pages/mailbox/mailbox.html">
                 <i class="fa fa-envelope"></i> <span>Mailbox</span>

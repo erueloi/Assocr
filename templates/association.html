@@ -10,6 +10,24 @@
 
 {% block breadcrumb %}<li class="active">{{ association.name }}</li>{% endblock %}
 
+<!-- Left Menu -->
+{% block firstleftmenuname %}Llista Associacions{% endblock %}
+
+{% block firstleftmenu %} 
+
+{% endblock %}
+
+{% block calendarmenu %}
+            <li >
+              <a href="{% url 'calendar' association.id %}">
+                <i class="fa fa-calendar"></i> <span>Calendar</span>
+              </a>
+            </li>
+{% endblock %}
+
+<!-- End Left Menu -->
+
+
 {% block content %}
 
 		<!-- Info row -->

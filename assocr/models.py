@@ -10,6 +10,7 @@ class Association(models.Model):
     adress = models.CharField(max_length=256)
     city = models.CharField(max_length=128)
     telephone = models.IntegerField()
+    idcalendar = models.CharField(max_length=128, null=True)
  
     def __unicode__(self):
         return self.name + ' - ' + self.number

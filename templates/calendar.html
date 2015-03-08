@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block sectionclass %}content{% endblock %}
+
+{% block title %}Calendari{% endblock %} 
+
+{% block titlepage %}Calendari{% endblock %} 
+
+{% block breadcrumb %}<li><a href="{% url 'association' association.id %}">{{ association.name }}</a></li>
+<li class="active">Calendari</li>
+{% endblock %}
+
+<!-- Left Menu -->
+{% block calendarmenu %}
+            <li >
+              <a href="{% url 'calendar' association.id %}">
+                <i class="fa fa-calendar"></i> <span>Calendar</span>
+              </a>
+            </li>
+{% endblock %}
+
+<!-- End Left Menu -->
+
+
+{% block content %}
+
+		<!-- Info row -->
+        <div class="row">
+            <div class="col-md-12">
+            	<div class="box box-primary">
+	                <div class="box-header">
+	                Calendari
+	                </div><!-- /.box-header -->
+	                <div class="box-body">
+	                	<div class="row invoice-info">
+				            <div class="col-md-12">
+				              {% if association.idcalendar %}
+				              <iframe src="https://www.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src={{ association.idcalendar }}&amp;color=%23875509&amp;ctz=Europe%2FParis" style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no">				           
+				              </iframe>
+				              {% else %}
+					             Informi de la id del Calendari a Mostrar
+				              {% endif %}
+				            </div><!-- /.col -->
+				          </div><!-- /.row -->
+	            	</div> <!-- /.box body -->            
+            	</div><!-- /.box -->
+          	</div> <!-- /.col -->
+         </div> <!-- /.row -->
+
+        <div class="clearfix"></div>        
+        
+        <script>
+        	jQuery(function($) {
+					$("tr[data-link]").click(function() {
+						window.location = this.dataset.link
+					});
+					
+					$("#ufs").dataTable();
+					})        	
+        </script>
+        
+{% endblock %}
