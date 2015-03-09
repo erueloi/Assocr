@@ -330,6 +330,18 @@
             </li>
             {% endblock %}
             
+            {% if user.is_superuser %}
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Gestió d'Usuaris</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">              	 
+                <li><a href="{% url 'registration_register' %}"><i class="fa fa-circle-o"></i> Afegir Usuaris</a></li>
+                <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Gestió</a></li>                
+              </ul>
+            </li>
+            {% endif %}            
+            
             <li>
               <a href="pages/mailbox/mailbox.html">
                 <i class="fa fa-envelope"></i> <span>Mailbox</span>
