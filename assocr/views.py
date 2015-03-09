@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from assocr.forms import AssociationForm, UFForm, MemberForm
+from assocr.forms import AssociationForm, UFForm, MemberForm, User_to_AssociationForm
 from assocr.models import Association, UF, Member, MemberResource
 
 from django.views.generic import View
@@ -435,3 +435,27 @@ def calendar(request, association_id):
         pass
 
     return render(request, 'calendar.html', context_dict)
+
+@login_required
+def user_to_association(request):
+    context_dict = {}
+
+    if request.method == 'POST':
+        form = User_to_AssociationForm(request.POST)
+
+        if form.is_valid():
+             form.save(commit=False)
+#             if association_id:
+#                 messages.success(request, 'Associacio actualitzada correctament.')
+#                 return association(request, association_id)
+#             else:
+#                 messages.success(request, 'Associacio afegida correctament.')
+#                 return index(request)            
+        else:
+            print form.errors
+    else:
+        form = User_to_AssociationForm()
+        
+    context_dict = {'form':form}
+
+    return render(request, 'users_to_associations.html', context_dict)

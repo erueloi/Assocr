@@ -33,6 +33,16 @@ class AssociationForm(forms.ModelForm):
         model = Association
         fields = ('name', 'email', 'penyanumber', 'adress', 'city', 'telephone', 'logotype', 'url', 'idcalendar')
         
+class User_to_AssociationForm(forms.ModelForm):
+    users = forms.ModelChoiceField(queryset=User.objects.all(), attrs={'onchange':'get_vehicle_color();'})
+    associations = forms.ModelMultipleChoiceField(queryset=Association.objects.all())
+    associationsto = forms.ModelMultipleChoiceField(queryset=Association.objects.all())
+       # An inline class to provide additional information on the form.
+    class Meta:
+        # Provide an association between the ModelForm and a model
+        model = Association
+        fields = ('users', 'associations', 'associationsto', )
+        
 class UFForm(forms.ModelForm):
     currentaccount = forms.CharField(max_length=20)
     typequote = forms.ChoiceField(choices=TYPEQUOTECHOICES, widget=forms.RadioSelect) 

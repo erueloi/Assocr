@@ -1,74 +1,82 @@
 {% extends 'base.html' %}
 
+{% block title %}
+		Afegir Usuari
+{% endblock %}
+
+{% block titlepage %}
+		Afegir Usuari
+{% endblock %}
+
+{% block breadcrumb %}
+		<li class="active">Afegir Usuari </li>
+{% endblock %}
+
 {% block content %}
   	
-    <div class="register-box">
-      <div class="register-logo">
-        <a href="/assocr"><b>Admin</b>LTE</a>
-      </div>
-
-      <div class="register-box-body">
-        <p class="login-box-msg">Register a new membership</p>       
-        <form action="." method="post">
-         {% csrf_token %}
-          <div class="form-group {% if form.username.errors %} has-error {% else %} has-feedback {% endif %}">
-          	{% if form.username.errors %}
-			    {% for error in form.username.errors %}
-			    	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error|escape }}</label> 
-			    {% endfor %}
-			{% endif %}            	      	
-            <input type="text" class="form-control" placeholder="Nom d'usuari" id="id_username" name="username"/>
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-          </div>
-          <div class="form-group {% if form.email.errors %} has-error {% else %} has-feedback {% endif %}">
-          	{% if form.email.errors %}
-			    {% for error in form.email.errors %}
-			    	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error|escape }}</label> 
-			    {% endfor %}
-			{% endif %}
-            <input type="text" class="form-control" placeholder="Email" id="id_email" name="email"/>
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-          </div>
-          <div class="form-group {% if form.password1.errors %} has-error {% else %} has-feedback {% endif %}">
-          	{% if form.password1.errors %}
-			    {% for error in form.password1.errors %}
-			    	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error|escape }}</label> 
-			    {% endfor %}
-			{% endif %}
-            <input type="password" class="form-control" placeholder="Password" id="id_password1" name="password1"/>
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
-          <div class="form-group {% if form.password2.errors %} has-error {% else %} has-feedback {% endif %}">
-          	{% if form.password2.errors %}
-			    {% for error in form.password2.errors %}
-			    	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error|escape }}</label> 
-			    {% endfor %}
-			{% endif %}
-            <input type="password" class="form-control" placeholder="Retype password" id="id_password2" name="password2"/>
-            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-          </div>
-          <div class="row">
-            <div class="col-xs-8">    
-              <div class="checkbox icheck">
-                <label>
-                  <input type="checkbox"> I agree to the <a href="#">terms</a>
-                </label>
-              </div>                        
-            </div><!-- /.col -->
-            <div class="col-xs-4">
-              <button type="submit" value="Submit" class="btn btn-primary btn-block btn-flat">Register</button>
-            </div><!-- /.col -->
-          </div>
-        </form>        
-
-        <div class="social-auth-links text-center">
-          <p>- OR -</p>
-          <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using Facebook</a>
-          <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign up using Google+</a>
-        </div>
-
-        <a href="{% url 'auth_login' %}" class="text-center">I already have a membership</a>
-      </div><!-- /.form-box -->
-    </div><!-- /.register-box -->
-
+  	
+  	<div class="row">
+            <div class="col-md-2">
+          	</div>
+  			<div class="col-md-7">
+			    <div class="box box-primary">     
+			      <div class="box-body">
+			        <p class="login-box-msg">Afegeix un nou usuari</p>       
+			        <form action="." method="post">
+			         {% csrf_token %}
+			          <div class="form-group {% if form.username.errors %} has-error {% else %} has-feedback {% endif %}">
+			          	{% if form.username.errors %}
+						    {% for error in form.username.errors %}
+						    	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error|escape }}</label> 
+						    {% endfor %}
+						{% endif %}            	      	
+			            <input type="text" class="form-control" placeholder="Nom d'usuari" id="id_username" name="username"/>
+			            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+			          </div>
+			          <div class="form-group {% if form.email.errors %} has-error {% else %} has-feedback {% endif %}">
+			          	{% if form.email.errors %}
+						    {% for error in form.email.errors %}
+						    	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error|escape }}</label> 
+						    {% endfor %}
+						{% endif %}
+			            <input type="text" class="form-control" placeholder="Email" id="id_email" name="email"/>
+			            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+			          </div>
+			          <div class="form-group {% if form.password1.errors %} has-error {% else %} has-feedback {% endif %}">
+			          	{% if form.password1.errors %}
+						    {% for error in form.password1.errors %}
+						    	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error|escape }}</label> 
+						    {% endfor %}
+						{% endif %}
+			            <input type="password" class="form-control" placeholder="Password" id="id_password1" name="password1"/>
+			            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			          </div>
+			          <div class="form-group {% if form.password2.errors %} has-error {% else %} has-feedback {% endif %}">
+			          	{% if form.password2.errors %}
+						    {% for error in form.password2.errors %}
+						    	<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error|escape }}</label> 
+						    {% endfor %}
+						{% endif %}
+			            <input type="password" class="form-control" placeholder="Retype password" id="id_password2" name="password2"/>
+			            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+			          </div>
+			          <div class="row">
+			            <div class="col-xs-8">    
+			              <div class="checkbox icheck">
+			              </div>                        
+			            </div><!-- /.col -->
+			            <div class="col-xs-4">
+			              <button type="submit" value="Submit" class="btn btn-primary btn-block btn-flat">Afegir</button>
+			            </div><!-- /.col -->
+			          </div>
+			        </form>        
+			
+			      
+			        <!--<a href="{% url 'auth_login' %}" class="text-center">I already have a membership</a>
+			      </div><!-- /.form-box -->
+			    </div><!-- /.register-box -->
+			</div>
+			<div class="col-md-3">
+          	</div>
+          	
 {% endblock %}

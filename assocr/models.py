@@ -1,5 +1,6 @@
 from django.db import models
 from import_export import resources, fields
+from django.contrib.auth.models import User
 
 class Association(models.Model):
     name = models.CharField(max_length=128)
@@ -11,9 +12,10 @@ class Association(models.Model):
     city = models.CharField(max_length=128)
     telephone = models.IntegerField()
     idcalendar = models.CharField(max_length=128, null=True)
+    users = models.ManyToManyField(User)
  
     def __unicode__(self):
-        return self.name + ' - ' + self.number
+        return self.name + ' - ' + str(self.penyanumber)
 # 
 class UF(models.Model):
     association = models.ForeignKey(Association)

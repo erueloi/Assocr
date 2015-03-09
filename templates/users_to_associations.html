@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+		Associar Usuaris - Associacions
+{% endblock %}
+
+{% block titlepage %}
+		Associar Usuaris - Associacions
+{% endblock %}
+
+{% block breadcrumb %}
+		<li class="active">Associar Usuaris - Associacions</li>
+{% endblock %}
+
+{% block content %}
+  	  	
+  	<div class="row">
+            <div class="col-md-2">
+          	</div>
+  			<div class="col-md-7">
+			    <div class="box box-primary">     
+			      <div class="box-body">
+			        <p class="login-box-msg">Afegeix un nou usuari</p> 
+			        <div class="row">
+			        	 <div class="col-md-3">
+			        	 </div>	
+			        </div>	      
+			      	 <form action="." method="post" role="form" enctype="multipart/form-data">
+		               	{% csrf_token %}
+		               	<div class="form-group {% if form.users.errors %}has-error{% endif %}">
+			                      <label for="form.users.id_for_label">Nom</label></br>
+			                      {% if form.users.errors %}<label class="control-label" for="form.users.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.users.errors|striptags }}</label>{% endif %}
+			                      {{ form.users }}
+		                </div>
+		               	<div class="row">
+			        	 <div class="col-md-3">
+				        	 <div class="form-group {% if form.associations.errors %}has-error{% endif %}">
+			                      <label for="form.associations.id_for_label">Nom</label></br>
+			                      {% if form.associations.errors %}<label class="control-label" for="form.associations.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.associations.errors|striptags }}</label>{% endif %}
+			                      {{ form.associations }}
+		                     </div>
+			        	 </div>
+			        	 <div class="col-md-3">
+			        	 </div>
+			        	 <div class="col-md-3">
+			        	 	 <div class="form-group {% if form.associationsto.errors %}has-error{% endif %}">
+			                      <label for="form.associationsto.id_for_label">Nom</label></br>
+			                      {% if form.associationsto.errors %}<label class="control-label" for="form.associationsto.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.associationsto.errors|striptags }}</label>{% endif %}
+			                      {{ form.associationsto }}
+		                     </div>			        	 	
+			        	 </div>	
+			        	</div>	             
+	               
+		             </form>
+
+			          <div class="row">
+			            <div class="col-xs-8">    
+			              <div class="checkbox icheck">
+			              </div>                        
+			            </div><!-- /.col -->
+			            <div class="col-xs-4">
+			              <button type="submit" value="Submit" class="btn btn-primary btn-block btn-flat">Afegir</button>
+			            </div><!-- /.col -->
+			          </div>          
+			    </div><!-- /.register-box -->
+			</div>
+			<div class="col-md-3">
+          	</div>
+          	
+{% endblock %}
