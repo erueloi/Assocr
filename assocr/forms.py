@@ -66,13 +66,22 @@ class MemberForm(forms.ModelForm):
                ('Anglaterra', 'Anglaterra'),
                ('Escocia', 'Escocia'),
                )
+    TYPEADRESSCHOICES = (
+               ('Carrer', 'Carrer'),
+               ('Avinguda', 'Avinguda'),
+               )
     name = forms.CharField(max_length=128, help_text="Escrigui el seu Nom")
     firstsurname = forms.CharField(max_length=128)
     secondsurname = forms.CharField(max_length=128)
     dni = forms.CharField(max_length=9) 
     birthdaydate = forms.DateField(widget=forms.widgets.DateInput(format="%d/%m/%Y"))
+    typeadress = forms.ChoiceField(choices=TYPEADRESSCHOICES, widget=forms.Select)
     adress = forms.CharField(widget=forms.Textarea)
-    postalcode = forms.IntegerField(max_value=99999)
+    number = forms.IntegerField(max_value=99999)
+    portal = forms.IntegerField(max_value=99999,required=False)
+    ladder = forms.IntegerField(max_value=99999,required=False)
+    floor = forms.IntegerField(max_value=99999,required=False)
+    door = forms.IntegerField(max_value=99999,required=False)
     city = forms.ChoiceField(choices=CITYCHOICES, widget=forms.Select)
     province = forms.ChoiceField(choices=PROVINCECHOICES, widget=forms.Select)
     country = forms.ChoiceField(choices=COUNTRYCHOICES, widget=forms.Select)
@@ -83,5 +92,5 @@ class MemberForm(forms.ModelForm):
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Member
-        fields = ('name', 'firstsurname', 'secondsurname', 'dni', 'birthdaydate', 'adress', 'postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'email')    
+        fields = ('name', 'firstsurname', 'secondsurname', 'dni', 'birthdaydate', 'typeadress', 'adress', 'number', 'portal', 'ladder', 'floor', 'door', 'postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'email')    
         

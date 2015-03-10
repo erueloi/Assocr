@@ -91,6 +91,12 @@
 	                    {{ form.birthdaydate|add_class:"form-control"|attr:"data-inputmask:'alias': 'dd/mm/yyyy'"|attr:"data-mask" }}	                    
                   		</div>
                     </div>
+                     <!-- select -->
+                    <div class="form-group" {% if form.typeadress.errors %}has-error{% endif %}>
+                      <label for="form.typeadress.id_for_label">Tipus de Via</label></br>
+                      {% if form.typeadress.errors %}<label class="control-label" for="form.typeadress.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.typeadress.errors|striptags }}</label>{% endif %}
+                      {{ form.typeadress|add_class:"form-control" }}                     
+                    </div>
                     <div class="form-group {% if form.adress.errors %}has-error{% endif %}">
                       <label for="form.adress.id_for_label">Adreça</label></br>
                       {% if form.adress.errors %}<label class="control-label" for="form.adress.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.adress.errors|striptags }}</label>{% endif %}
@@ -99,6 +105,43 @@
 	                    {{ form.adress|add_class:"form-control"|attr:"rows:3" }}
                   	  </div>                      
                     </div>
+                     <div class="row">
+			          	<div class="col-md-2">
+			          		 <div class="form-group {% if form.number.errors %}has-error{% endif %}">
+		                      <label for="form.number.id_for_label">Numero</label></br>
+		                      {% if form.number.errors %}<label class="control-label" for="form.number.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.number.errors|striptags }}</label>{% endif %}
+		                      {{ form.number|add_class:"form-control" }}                      
+		                     </div>
+			          	</div>
+			            <div class="col-md-2">
+			          		 <div class="form-group {% if form.portal.errors %}has-error{% endif %}">
+		                      <label for="form.portal.id_for_label">Portal</label></br>
+		                      {% if form.portal.errors %}<label class="control-label" for="form.portal.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.portal.errors|striptags }}</label>{% endif %}
+		                      {{ form.portal|add_class:"form-control" }}                      
+		                     </div>
+			          	</div>
+			          	<div class="col-md-2">
+			          		 <div class="form-group {% if form.ladder.errors %}has-error{% endif %}">
+		                      <label for="form.ladder.id_for_label">Escala</label></br>
+		                      {% if form.ladder.errors %}<label class="control-label" for="form.ladder.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.ladder.errors|striptags }}</label>{% endif %}
+		                      {{ form.ladder|add_class:"form-control" }}                      
+		                     </div>
+			          	</div>
+			          	<div class="col-md-2">
+			          		 <div class="form-group {% if form.floor.errors %}has-error{% endif %}">
+		                      <label for="form.floor.id_for_label">Pis</label></br>
+		                      {% if form.floor.errors %}<label class="control-label" for="form.floor.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.floor.errors|striptags }}</label>{% endif %}
+		                      {{ form.floor|add_class:"form-control" }}                      
+		                     </div>
+			          	</div>
+			          	<div class="col-md-2">
+			          		 <div class="form-group {% if form.door.errors %}has-error{% endif %}">
+		                      <label for="form.door.id_for_label">Porta</label></br>
+		                      {% if form.door.errors %}<label class="control-label" for="form.door.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.door.errors|striptags }}</label>{% endif %}
+		                      {{ form.door|add_class:"form-control" }}                      
+		                     </div>
+			          	</div>
+            		</div>
                     <div class="form-group {% if form.postalcode.errors %}has-error{% endif %}">
                       <label for="form.postalcode.id_for_label">Codi Postal</label></br>
                       {% if form.postalcode.errors %}<label class="control-label" for="form.postalcode.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.postalcode.errors|striptags }}</label>{% endif %}
