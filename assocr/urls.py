@@ -27,4 +27,8 @@ urlpatterns += patterns('',
         url(r'^association/(?P<association_id>[\w\-]+)/process_import/$',     login_required(MemberProcessImport.as_view()), name='members_process_import'),
         )
 
+urlpatterns += patterns('',
+        url(r'^get_association_user/(?P<user_id>[\w\-]+)/$', views.get_association_user, name='get_association_user'),
+        )
+
 #handler404 = views.page_not_found

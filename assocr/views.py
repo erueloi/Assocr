@@ -1,10 +1,11 @@
 from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from assocr.forms import AssociationForm, UFForm, MemberForm, User_to_AssociationForm
 from assocr.models import Association, UF, Member, MemberResource
+from django.contrib.auth.models import User
 
 from django.views.generic import View
-from django.http import HttpResponse, HttpResponseRedirect
 from django.template.response import TemplateResponse
 from import_export.formats import base_formats
 from import_export.resources import modelresource_factory
@@ -439,23 +440,29 @@ def calendar(request, association_id):
 @login_required
 def user_to_association(request):
     context_dict = {}
-
+       
     if request.method == 'POST':
         form = User_to_AssociationForm(request.POST)
-
-        if form.is_valid():
-             form.save(commit=False)
-#             if association_id:
-#                 messages.success(request, 'Associacio actualitzada correctament.')
-#                 return association(request, association_id)
-#             else:
-#                 messages.success(request, 'Associacio afegida correctament.')
-#                 return index(request)            
-        else:
-            print form.errors
+        associationsto = request.POST.getlist('associationsto')
+        print request
+        for assoc in associationsto:
+            print assoc
+#             association = Association.objects.get(id=assoc.id)
+#             print form.users
+#             association.user = form.users
+        
     else:
         form = User_to_AssociationForm()
         
     context_dict = {'form':form}
 
     return render(request, 'users_to_associations.html', context_dict)
+
+@login_required
+def get_association_user(request, user_id):
+    user = User.objects.get(id=user_id)
+    associations = Association.objects.filter(users=user)    
+    association_dict = {}
+    for association in associations:
+        association_dict[association.id] = association.name + ' - ' + str(association.penyanumber)
+    return JsonResponse(association_dict, safe=False)

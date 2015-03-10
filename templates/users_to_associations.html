@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
 {% block title %}
 		Associar Usuaris - Associacions
 {% endblock %}
@@ -20,7 +22,7 @@
   			<div class="col-md-7">
 			    <div class="box box-primary">     
 			      <div class="box-body">
-			        <p class="login-box-msg">Afegeix un nou usuari</p> 
+			        <p class="login-box-msg">Associa Usuari a Associació</p> 
 			        <div class="row">
 			        	 <div class="col-md-3">
 			        	 </div>	
@@ -28,43 +30,91 @@
 			      	 <form action="." method="post" role="form" enctype="multipart/form-data">
 		               	{% csrf_token %}
 		               	<div class="form-group {% if form.users.errors %}has-error{% endif %}">
-			                      <label for="form.users.id_for_label">Nom</label></br>
+			                      <label for="form.users.id_for_label">Usuari</label></br>
 			                      {% if form.users.errors %}<label class="control-label" for="form.users.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.users.errors|striptags }}</label>{% endif %}
 			                      {{ form.users }}
 		                </div>
 		               	<div class="row">
-			        	 <div class="col-md-3">
+			        	 <div class="col-md-5">
 				        	 <div class="form-group {% if form.associations.errors %}has-error{% endif %}">
-			                      <label for="form.associations.id_for_label">Nom</label></br>
+			                      <label for="form.associations.id_for_label">Associacions</label></br>
 			                      {% if form.associations.errors %}<label class="control-label" for="form.associations.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.associations.errors|striptags }}</label>{% endif %}
 			                      {{ form.associations }}
 		                     </div>
 			        	 </div>
-			        	 <div class="col-md-3">
+			        	 <div class="col-md-2">
+			        	 	</br>
+			        	 	<a name="add" class="btn btn-success"><i class="fa fa-plus"></i></a>
+			        	 	</br>
+			        	 	</br>
+			        	 	<a name="remove" class="btn btn-danger"><i class="fa fa-minus"></i></a>
 			        	 </div>
-			        	 <div class="col-md-3">
+			        	 <div class="col-md-5">
 			        	 	 <div class="form-group {% if form.associationsto.errors %}has-error{% endif %}">
-			                      <label for="form.associationsto.id_for_label">Nom</label></br>
+			                      <label for="form.associationsto.id_for_label">Associacions Assignades</label></br>
 			                      {% if form.associationsto.errors %}<label class="control-label" for="form.associationsto.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.associationsto.errors|striptags }}</label>{% endif %}
 			                      {{ form.associationsto }}
 		                     </div>			        	 	
 			        	 </div>	
-			        	</div>	             
-	               
-		             </form>
-
-			          <div class="row">
-			            <div class="col-xs-8">    
+			        	</div>
+			        	
+			        	 <div class="row">
+			            <div class="col-xs-9">    
 			              <div class="checkbox icheck">
 			              </div>                        
 			            </div><!-- /.col -->
-			            <div class="col-xs-4">
-			              <button type="submit" value="Submit" class="btn btn-primary btn-block btn-flat">Afegir</button>
+			            <div class="col-xs-3">
+			              <button type="submit" value="Submit" class="btn btn-primary btn-block btn-flat">Guardar</button>
 			            </div><!-- /.col -->
-			          </div>          
-			    </div><!-- /.register-box -->
+			          </div>                
+	               
+		             </form>			                
+			    </div><!-- /.box-body -->
 			</div>
 			<div class="col-md-3">
           	</div>
           	
+          	<script>
+			$(document).ready(function(){
+			    $('select[name=users]').change(function(){
+			        user_id = $(this).val();
+			        request_url = '/assocr/get_association_user/' + user_id + '/';
+			        $.ajax({
+			            url: request_url,
+			            success: function(data){
+			            	$('select[name=associationsto]').empty()			            	
+			                $.each(data, function(key, value){
+			                	$('select[name=associations] option[value=' + key + ']').remove()
+			                    $('select[name=associationsto]').append('<option value="' + key + ' ">' + value +'</option>');
+			                });
+			            }
+			        })
+			    })
+			    
+			    $('a[name=add]').click(function(){			    	
+			    	$('select[name=associations] option:selected').each(function() {
+					     $('select[name=associationsto]')
+					         .append($("<option></option>")
+					         .attr("value",$(this).val())
+					         .text($(this).text()));
+					});	 
+			    	
+			    	$('select[name=associations] option:selected').remove()	    			    	   	
+			    })
+			    
+			    $('a[name=remove]').click(function(){			    	
+			    	$('select[name=associationsto] option:selected').each(function() {
+					     $('select[name=associations]')
+					         .append($("<option></option>")
+					         .attr("value",$(this).val())
+					         .text($(this).text()));
+					});	 
+			    	
+			    	$('select[name=associationsto	] option:selected').remove()	    			    	   	
+			    })
+			});
+			</script>
+          	
 {% endblock %}
+
+
