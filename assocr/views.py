@@ -29,10 +29,16 @@ def association(request, association_id):
     context_dict = {}
     try:
         association = Association.objects.get(id=association_id)
-        ufs = UF.objects.filter(association=association)        
+        ufs = UF.objects.filter(association=association)  
+        totalufs = ufs.count()
+        totalBanc = UF.objects.filter(association=association, currentaccount__gt=0).exclude(currentaccount=0.0).count()   
         context_dict['association'] = association
         context_dict['Ufs'] = ufs     
         context_dict['totalmembers'] = Member.objects.all().filter(uf=ufs).count
+        context_dict['totalBanc'] = totalBanc
+        context_dict['totalEfectiu'] = totalufs - totalBanc
+        context_dict['percent_totalBanc'] = totalBanc * 100 / totalufs
+        context_dict['percent_totalEfectiu'] = (totalufs - totalBanc) * 100 / totalufs
                   
     except Association.DoesNotExist:
         pass

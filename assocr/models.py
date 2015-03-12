@@ -52,12 +52,19 @@ class Member(models.Model):
     def __unicode__(self):
         return self.name + ' ' + self.firstsurname
     
+
+class Receipts(models.Model):
+    uf = models.ForeignKey(UF)
+    year = models.IntegerField()
+    state = models.IntegerField()  
+    
+    
 class MemberResource(resources.ModelResource):  
     class Meta:
         model = Member
         #fields = ('uf__currentaccount', )
         export_order = ('id', 'uf', 'name', 'firstsurname','secondsurname','dni',
-                  'birthdaydate','adress','postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'email', )       
+                  'birthdaydate', 'typeadress', 'adress', 'number', 'portal', 'ladder', 'floor', 'door','postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'email', )       
          
     def before_import(self, dataset, dry_run):        
         if 'uf' in dataset.headers:
