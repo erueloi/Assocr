@@ -472,3 +472,39 @@ def get_association_user(request, user_id):
     for association in associations:
         association_dict[association.id] = association.name + ' - ' + str(association.penyanumber)
     return JsonResponse(association_dict, safe=False)
+
+@login_required
+def add_receipt(request, association_id, uf_id, receipt_id=None):
+    
+    try:
+        unif = UF.objects.get(id=uf_id)
+    except UF.DoesNotExist:
+        unif = None
+        
+    if receipt_id:
+        editreceipt = Receipt.objects.get(id=receipt_id)
+    else:
+        editreceipt = None
+                        
+    if request.method == 'POST':
+        form = ReceiptForm(request.POST, instance=editreceipt)        
+        if form.is_valid():
+            if unif:
+                receipt = form.save(commit=False)
+                receipt.uf = unif
+                receipt.save()
+                
+                if member_id:
+                    messages.success(request, 'Rebut actualitzat correctament.')
+                    return member(request, association_id, uf_id, member_id)
+                else:
+                    messages.success(request, 'Rebut afegit correctament.')
+                    return uf(request, association_id, uf_id)
+        else:
+            print form.errors
+    else:
+        form = ReceiptForm(instance=editreceipt)
+
+    context_dict = {'form':form, 'uf': unif, 'receipt_id': receipt_id}
+    
+    return render(request, 'add_receipt.html', context_dict)

@@ -18,6 +18,7 @@ urlpatterns = patterns('',
         url(r'^association/(?P<association_id>[\w\-]+)/export/$', login_required(MembersExport.as_view()), name='members_export'),
         url(r'^calendar/(?P<association_id>[\w\-]+)/$', views.calendar, name='calendar'),
         url(r'^usert-to-association/$', views.user_to_association, name='user_to_association'),
+        url(r'^association/(?P<association_id>[\w\-]+)/uf/(?P<uf_id>[\w\-]+)/add_receipt/$', views.add_receipt, name='add_receipt'),
         )
 
 #export - import

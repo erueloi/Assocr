@@ -16,6 +16,12 @@ TYPEQUOTECHOICES = (
                ('3', 'Jubilat - 15'),
                )
 
+STATECHOICES = (
+               ('1', 'Enviat'),
+               ('2', 'Retornat'),
+               ('3', 'Pagat'),
+               )
+
 
 class AssociationForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Escrigui el seu Nom")
@@ -92,5 +98,15 @@ class MemberForm(forms.ModelForm):
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Member
-        fields = ('name', 'firstsurname', 'secondsurname', 'dni', 'birthdaydate', 'typeadress', 'adress', 'number', 'portal', 'ladder', 'floor', 'door', 'postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'email')    
+        fields = ('name', 'firstsurname', 'secondsurname', 'dni', 'birthdaydate', 'typeadress', 'adress', 'number', 'portal', 'ladder', 'floor', 'door', 'postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'email')
+        
+    
+class ReceiptForm(forms.ModelForm):
+    year = forms.IntegerField(max_value=9999)
+    state = forms.ChoiceField(choices=STATECHOICES, widget=forms.RadioSelect) 
+       # An inline class to provide additional information on the form.
+    class Meta:
+        # Provide an association between the ModelForm and a model
+        model = UF
+        fields = ('year', 'state')
         
