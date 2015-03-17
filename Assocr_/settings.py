@@ -65,6 +65,20 @@ ROOT_URLCONF = 'Assocr_.urls'
 
 WSGI_APPLICATION = 'Assocr_.wsgi.application'
 
+# #PythonAnyWhere!
+# # # Database
+# # # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'erueloi$assocr',
+#         'USER': 'erueloi',
+#         'PASSWORD': 'Eloi1983',
+#         'HOST': 'mysql.server',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
+
 
 # #CASA!
 # # # Database
