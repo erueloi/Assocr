@@ -94,7 +94,7 @@
 			    $('a[name=add]').click(function(){			    	
 			    	$('select[name=associations] option:selected').each(function() {
 					     $('select[name=associationsto]')
-					         .append($("<option></option>")
+					         .append($("<option selected></option>")
 					         .attr("value",$(this).val())
 					         .text($(this).text()));
 					});	 

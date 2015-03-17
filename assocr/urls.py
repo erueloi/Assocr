@@ -2,7 +2,7 @@
 from django.conf.urls import patterns, url
 from assocr import views
 from django.contrib.auth.decorators import login_required
-from assocr.views import MembersExport, MemberImport, MemberProcessImport
+from assocr.importexport import MembersExport, MemberImport, MemberProcessImport
 
 urlpatterns = patterns('',
         url(r'^$', views.index, name='index'),
@@ -19,6 +19,7 @@ urlpatterns = patterns('',
         url(r'^calendar/(?P<association_id>[\w\-]+)/$', views.calendar, name='calendar'),
         url(r'^usert-to-association/$', views.user_to_association, name='user_to_association'),
         url(r'^association/(?P<association_id>[\w\-]+)/uf/(?P<uf_id>[\w\-]+)/add_receipt/$', views.add_receipt, name='add_receipt'),
+        url(r'^association/(?P<association_id>[\w\-]+)/uf/(?P<uf_id>[\w\-]+)/receipt/(?P<receipt_id>[\w\-]+)/edit/$', views.add_receipt, name='edit_receipt'),
         )
 
 #export - import
@@ -30,6 +31,7 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('',
         url(r'^get_association_user/(?P<user_id>[\w\-]+)/$', views.get_association_user, name='get_association_user'),
+        url(r'^generate_receipts/(?P<association_id>[\w\-]+)/$', views.generate_receipts, name='generate_receipts'),
         )
 
 #handler404 = views.page_not_found

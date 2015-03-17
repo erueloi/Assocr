@@ -172,13 +172,24 @@
 	                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>	                   
 	                    {{ form.telephone|add_class:"form-control" }}
                   	  </div>
-                    </div>
-                    <div class="form-group {% if form.fcbmember.errors %}has-error{% endif %}">                      
-                      {% if form.fcbmember.errors %}<label class="control-label" for="form.fcbmember.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.fcbmember.errors|striptags }}</label>{% endif %}                  	                   
-	                  <label for="form.fcbmember.id_for_label"> Soci FCB?  
-	                    {{ form.fcbmember|add_class:"minimal" }}
-	                  </label> 
-                    </div>
+                    </div>               
+                      <div class="row">
+			          	<div class="col-md-4">
+			          		 <div class="form-group {% if form.fcbmember.errors %}has-error{% endif %}">                      
+		                      {% if form.fcbmember.errors %}<label class="control-label" for="form.fcbmember.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.fcbmember.errors|striptags }}</label>{% endif %}                  	                   
+			                  <label for="form.fcbmember.id_for_label"> Soci FCB?  
+			                    {{ form.fcbmember|add_class:"minimal" }}
+			                  </label>               
+                    		</div>
+			          	</div>
+			            <div class="col-md-8">
+			          		 <div class="form-group {% if form.fcbnumber.errors %}has-error{% endif %}">
+		                      <label for="form.fcbnumber.id_for_label">Número Soci FCB</label></br>
+		                      {% if form.fcbnumber.errors %}<label class="control-label" for="form.fcbnumber.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.fcbnumber.errors|striptags }}</label>{% endif %}
+		                      {{ form.fcbnumber|add_class:"form-control" }}                      
+		                     </div>
+			          	</div>
+			          </div>	
                     <div class="form-group {% if form.email.errors %}has-error{% endif %}">
                       <label for="form.email.id_for_label">Email</label></br>
                       {% if form.email.errors %}<label class="control-label" for="form.email.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.email.errors|striptags }}</label>{% endif %}

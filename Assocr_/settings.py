@@ -45,10 +45,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',    
     'django.contrib.sites',
+    'assocr',
     'registration',
     'widget_tweaks',
-    'import_export',
-    'assocr'
+    'import_export'
 )
 
 MIDDLEWARE_CLASSES = (

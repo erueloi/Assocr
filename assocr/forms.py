@@ -1,5 +1,5 @@
 from django import forms
-from assocr.models import Association, UF, Member
+from assocr.models import Association, UF, Member, Receipts
 from django.contrib.auth.models import User
 
 CITYCHOICES = (
@@ -40,7 +40,7 @@ class AssociationForm(forms.ModelForm):
         fields = ('name', 'email', 'penyanumber', 'adress', 'city', 'telephone', 'logotype', 'url', 'idcalendar')
         
 class User_to_AssociationForm(forms.ModelForm):
-    users = forms.ModelChoiceField(queryset=User.objects.all(),required=False)
+    users = forms.ModelChoiceField(queryset=User.objects.filter(is_superuser=0),required=False)
     associations = forms.ModelMultipleChoiceField(queryset=Association.objects.all(),required=False)
     associationsto = forms.MultipleChoiceField(required=False)
        # An inline class to provide additional information on the form.
@@ -93,12 +93,13 @@ class MemberForm(forms.ModelForm):
     country = forms.ChoiceField(choices=COUNTRYCHOICES, widget=forms.Select)
     telephone = forms.IntegerField(max_value=999999999)
     fcbmember = forms.BooleanField(required=False)
+    fcbnumber = forms.IntegerField(max_value=9999999)
     email = forms.EmailField()
        # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Member
-        fields = ('name', 'firstsurname', 'secondsurname', 'dni', 'birthdaydate', 'typeadress', 'adress', 'number', 'portal', 'ladder', 'floor', 'door', 'postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'email')
+        fields = ('name', 'firstsurname', 'secondsurname', 'dni', 'birthdaydate', 'typeadress', 'adress', 'number', 'portal', 'ladder', 'floor', 'door', 'postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'fcbnumber', 'email')
         
     
 class ReceiptForm(forms.ModelForm):
@@ -107,6 +108,6 @@ class ReceiptForm(forms.ModelForm):
        # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model
-        model = UF
+        model = Receipts
         fields = ('year', 'state')
         

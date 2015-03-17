@@ -27,8 +27,6 @@
 	{% else %}
 		<li class="active">Afegir Rebut</li>
 	{% endif %}
-
-	{% endif %}
 {% endblock %}
 
 {% block content %}		
@@ -59,7 +57,11 @@
                   	<div class="form-group {% if form.year.errors %}has-error{% endif %}">
                       <label for="form.year.id_for_label">Any del Rebut</label></br>
                       {% if form.year.errors %}<label class="control-label" for="form.year.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.year.errors|striptags }}</label>{% endif %}
-                      {{ form.year|add_class:"form-control" }}
+                      {% if receipt_id %}
+                      	{{ form.year|add_class:"form-control"|attr:"readonly" }}	                      	
+                      {% else %}
+						{{ form.year|add_class:"form-control" }}
+					  {% endif %}                    
                     </div>                  
                     <!-- radio -->
                     <div class="form-group">
