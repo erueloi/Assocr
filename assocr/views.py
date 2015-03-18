@@ -22,7 +22,8 @@ def association(request, association_id):
         totalufs = ufs.count()
         totalBanc = UF.objects.filter(association=association, currentaccount__gt=0).exclude(currentaccount=0.0).count()   
         context_dict['association'] = association
-        context_dict['Ufs'] = ufs     
+        context_dict['Ufs'] = ufs 
+        context_dict['totalreceipts'] = Receipts.objects.filter(uf=ufs, year=datetime.datetime.now().year).count()    
         context_dict['totalmembers'] = Member.objects.all().filter(uf=ufs).count
         context_dict['totalBanc'] = totalBanc
         context_dict['totalEfectiu'] = totalufs - totalBanc
@@ -231,7 +232,7 @@ def generate_receipts(request, association_id):
             r.uf = uf
             
         r.year = datetime.datetime.now().year
-        r.state = 1        
+        r.state = 0        
         r.save()
         i += 1
     

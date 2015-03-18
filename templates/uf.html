@@ -115,7 +115,7 @@
           	<div class="col-xs-12">
           	 <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Rebuts</h3>
+                  <h3 class="box-title">Històric de Rebuts</h3>
                   <div class="box-tools">
                     <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                   </div><!-- /.box-tools -->
@@ -136,8 +136,10 @@
 			                <tbody>
 			                    {% for receipt in receipts %}
 			                	 <tr data-link="{% url 'edit_receipt' uf.association.id uf.id receipt.id %}">
-				                    <td>{{ receipt.year }}</td>		
-				                    {% if receipt.state == 1 %}		                                   
+				                    <td>{{ receipt.year }}</td>	
+				                    {% if receipt.state == 0 %}	
+				                    		<td><span class="label label-warning">Generat</span></td>
+				                    {% elif receipt.state == 1 %}		                                   
 				                    	<td><span class="label label-primary">Enviat</span></td>
 				                    {% elif receipt.state == 2 %}		
 				                    	<td><span class="label label-danger">Retornat</span></td> 

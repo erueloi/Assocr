@@ -2,7 +2,7 @@
 from django.conf.urls import patterns, url
 from assocr import views
 from django.contrib.auth.decorators import login_required
-from assocr.importexport import MembersExport, MemberImport, MemberProcessImport
+from assocr.importexport import MembersExport, MemberImport, MemberProcessImport, GenerateXmlSEPAExport
 
 urlpatterns = patterns('',
         url(r'^$', views.index, name='index'),
@@ -27,6 +27,7 @@ urlpatterns += patterns('',
         url(r'^association/(?P<association_id>[\w\-]+)/export/$', login_required(MembersExport.as_view()), name='members_export'),
         url(r'^association/(?P<association_id>[\w\-]+)/import/$', login_required(MemberImport.as_view()), name='members_import'),
         url(r'^association/(?P<association_id>[\w\-]+)/process_import/$',     login_required(MemberProcessImport.as_view()), name='members_process_import'),
+        url(r'^association/(?P<association_id>[\w\-]+)/xml_sepa/$', login_required(GenerateXmlSEPAExport.as_view()), name='xml_sepa'),
         )
 
 urlpatterns += patterns('',

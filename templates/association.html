@@ -51,36 +51,69 @@
 	                  </div>
 	                </div><!-- /.box-header -->
 	                <div class="box-body">
-	                	<div class="row invoice-info">
-				            <div class="col-sm-4 invoice-col">
-				              Dades:
-				              <address>
-				                <strong>{{ association.name }}</strong><br>
-				                {{ association.adress }}<br>
-				                {{ association.city }}, 25003<br>
-				                Telf.: {{ association.telephone }}<br/>
-				                Email: {{ association.email }}
-				              </address>
-				            </div><!-- /.col -->
-				            <div class="col-sm-4 invoice-col">
-				              Junta:
-				              <address>
-				                <strong>President:</strong> Daniel Rovira Romà<br>
-				                <strong>VicePresident:</strong> Eloi Aymerich Berenguer<br>
-				                <strong>Secretari:</strong> Ramon Usall<br>
-				                <strong>Diseny:</strong> Arnau Benet Marques<br>
-				              </address>
-				            </div><!-- /.col -->
-				            <div class="col-sm-4 invoice-col">
-				              <div class="info-box">
-				                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-				                <div class="info-box-content">
-				                  <span class="info-box-text">Socis</span>
-				                  <span class="info-box-number">{{ totalmembers }}</span>
-				                </div><!-- /.info-box-content -->
-				              </div><!-- /.info-box -->
-				             </div><!-- /.col -->
-				          </div><!-- /.row -->
+	                	<div class="nav-tabs-custom">
+	                		<ul class="nav nav-tabs">
+			                  <li class="active"><a href="#tab_1" data-toggle="tab">Dades</a></li>
+			                  <li><a href="#tab_2" data-toggle="tab">Dades Bancaries</a></li>            			              
+			                </ul>
+		                	<div class="tab-content">
+			                	<div class="tab-pane active" id="tab_1">
+			                		<div class="row invoice-info">
+						            <div class="col-sm-4 invoice-col">						     
+						              <address>
+						                <strong>{{ association.name }}</strong><br>
+						                {{ association.adress }}<br>
+						                {{ association.city }}, 25003<br>
+						                Telf.: {{ association.telephone }}<br/>
+						                Email: {{ association.email }}
+						              </address>
+						            </div><!-- /.col -->
+						            <div class="col-sm-4 invoice-col">
+						              Junta:
+						              <address>
+						                <strong>President:</strong> Daniel Rovira Romà<br>
+						                <strong>VicePresident:</strong> Eloi Aymerich Berenguer<br>
+						                <strong>Secretari:</strong> Ramon Usall<br>
+						                <strong>Diseny:</strong> Arnau Benet Marques<br>
+						              </address>
+						            </div><!-- /.col -->
+						            <div class="col-sm-4 invoice-col">
+						              <div class="info-box">
+						                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+						                <div class="info-box-content">
+						                  <span class="info-box-text">Socis</span>
+						                  <span class="info-box-number">{{ totalmembers }}</span>
+						                </div><!-- /.info-box-content -->
+						              </div><!-- /.info-box -->
+						             </div><!-- /.col -->
+						          </div><!-- /.row -->
+			            		</div>
+			            		<div class="tab-pane" id="tab_2">
+			            			<div class="row invoice-info">
+						            <div class="col-sm-4 invoice-col">
+						              Compte Corrent:
+						              <address>
+						                <strong>{{ association.currentaccount }}</strong>
+						              </address>			
+						            </div><!-- /.col -->
+						            <div class="col-sm-4 invoice-col">
+						            	Al pulsar el botó es generarà un Fitxer XML en format SEPA per a tramitar els rebuts en estat <span class="label label-warning">Generat</span> per importar a l'entiat bancària i executar l'ordre d'enviament de les Quotes de l'any actual.</br>
+						            	Aquests rebuts passaran en estat <span class="label label-primary">Enviat</span>.
+						            	<a href="{% url 'xml_sepa' association.id %}" class="btn btn-default"><i class="fa fa-edit"></i> Generar XML SEPA Rebuts</a></b>
+						            </div>		
+						            <div class="col-sm-4 invoice-col">
+						            	 <div class="info-box">
+						                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+						                <div class="info-box-content">
+						                  <span class="info-box-text">Rebuts Bancaris</span>
+						                  <span class="info-box-number">{{ totalreceipts }}</span>
+						                </div><!-- /.info-box-content -->
+						              </div><!-- /.info-box -->
+						            </div>				          
+						          </div><!-- /.row -->
+			            		</div>
+			            	</div>
+		            	</div>
 	            	</div> <!-- /.box body -->            
             	</div><!-- /.box -->
           	</div> <!-- /.col -->

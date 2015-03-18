@@ -17,6 +17,7 @@ TYPEQUOTECHOICES = (
                )
 
 STATECHOICES = (
+               ('0', 'Generat'),
                ('1', 'Enviat'),
                ('2', 'Retornat'),
                ('3', 'Pagat'),
@@ -32,12 +33,13 @@ class AssociationForm(forms.ModelForm):
     telephone = forms.IntegerField(max_value=999999999)
     logotype = forms.ImageField(required=False)
     url = forms.URLField() 
-    idcalendar = forms.CharField(max_length=128) 
-       # An inline class to provide additional information on the form.
+    currentaccount = forms.CharField(max_length=20)
+    idcalendar = forms.CharField(max_length=128)     
+
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Association
-        fields = ('name', 'email', 'penyanumber', 'adress', 'city', 'telephone', 'logotype', 'url', 'idcalendar')
+        fields = ('name', 'email', 'penyanumber', 'adress', 'city', 'telephone', 'logotype', 'url', 'currentaccount', 'idcalendar')
         
 class User_to_AssociationForm(forms.ModelForm):
     users = forms.ModelChoiceField(queryset=User.objects.filter(is_superuser=0),required=False)

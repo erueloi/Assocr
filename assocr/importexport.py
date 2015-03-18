@@ -11,8 +11,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from assocr.admin import MemberResource
 from assocr.models import Association, UF, Member, Receipts
+from assocr.PySepaDD import PySepaDD
 import os.path
 import tempfile
+import datetime
 
 class MembersExport(View):
 
@@ -265,3 +267,68 @@ class MemberProcessImport(View):
             id = association.id  
             url = reverse('assocr.views.association', args=(id,))
             return HttpResponseRedirect(url)
+
+class GenerateXmlSEPAExport(View):
+
+    def get(self, *args, **kwargs ):       
+        assoc = Association.objects.get(id=self.kwargs['association_id'])
+        config = {"name": assoc.name,
+              "IBAN": self.calc_iban(str(assoc.currentaccount)),
+              "BIC": "BANKNL2A",
+              "creditor_id": "000000",
+              "currency": "EUR"
+              }
+        psdd = PySepaDD(config)           
+        ufs = UF.objects.filter(association=assoc,state=True,currentaccount__gt=0).exclude(currentaccount=0.0)
+        for uf in ufs:
+            r = Receipts.objects.get(uf=uf, year=datetime.datetime.now().year)
+            for mem in Member.objects.filter(uf=uf):
+                name = mem.firstsurname + ' ' + mem.secondsurname 
+            payment = {"name": name,
+                "IBAN": self.calc_iban(str(uf.currentaccount)),
+                "BIC": "BANKNL2A",
+                "amount": 30,
+                "type": "RCUR",
+                "collection_date": datetime.date.today(),
+                "mandate_id": str(uf.id),
+                "mandate_date": datetime.date.today(),
+                "description": "Quota"
+               }
+            psdd.add_payment(payment)  
+            r.state = 1
+            r.save()   
+        
+        data_dict = {}
+              
+        response = HttpResponse(psdd.export(), content_type="text/xml")
+        response['Content-Disposition'] = 'attachment; filename=LlistatRebuts_' + assoc.name +'.xml'
+        return response
+    
+    def mod97(self, digit_string):
+    #Modulo 97 for huge numbers given as digit strings.
+    #This function is a prototype for a JavaScript implementation.
+    #In Python this can be done much easier: long(digit_string) % 97.
+    
+        m = 0
+        for d in digit_string:
+            m = (m * 10 + int(d)) % 97
+        return m
+    
+    #calculo del formato iban de una cuenta bancaria
+    def calc_iban(self, acc_number):
+        iban = "ES" + "00" + acc_number
+        code     = iban[:2]
+        checksum = iban[2:4]
+        bban     = iban[4:]
+        digits = ""
+        for ch in bban.upper():
+            if ch.isdigit():
+                digits += ch
+            else:
+                digits += str(ord(ch) - ord("A") + 10)
+        for ch in code:
+            digits += str(ord(ch) - ord("A") + 10)
+        digits += checksum
+        checksum = 98 - self.mod97(digits)
+        checksum = (str(checksum)).zfill(2)
+        return "ES" + checksum + acc_number

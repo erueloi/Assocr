@@ -102,24 +102,31 @@
                   	  </div>                      
                     </div>                    
                     <div class="form-group {% if form.logotype.errors %}has-error{% endif %}">
-                      {% if association_id %}
-                    	<a href="{{ form.url.value }}"><img class="media-object" src="{% if url_image %} {{ url_image }} {% else %} {% static "images/nologo.png" %} {% endif %}" alt="logo" style="width: 64px; height: 64px;"></a>
-                      {% endif %}
-                      <label for="form.logotype.id_for_label">Logotip</label></br>
-                      {% if form.logotype.errors %}<label class="control-label" for="form.logotype.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.logotype.errors|striptags }}</label>{% endif %}
-                      <div class="input-group">
-	                    <span class="input-group-addon"><i class="fa fa-link"></i></span>
-	                    {{ form.logotype|add_class:"form-control" }}
-	                    <p class="help-block">Nomé format .png</p>
-                  	  </div> 
-                  	  </div> 
-                  	  <hr>
-                  	  <h3> Configuració Google Calendar (Opcional)</h3>
-                  	  <div class="form-group {% if form.idcalendar.errors %}has-error{% endif %}">
-                      <label for="form.idcalendar.id_for_label">Id Calendari</label></br>
-                      {% if form.idcalendar.errors %}<label class="control-label" for="form.idcalendar.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.idcalendar.errors|striptags }}</label>{% endif %}
-                      {{ form.idcalendar|add_class:"form-control" }}
-                    </div>                    
+                  	{% if association_id %}
+                		<a href="{{ form.url.value }}"><img class="media-object" src="{% if url_image %} {{ url_image }} {% else %} {% static "images/nologo.png" %} {% endif %}" alt="logo" style="width: 64px; height: 64px;"></a>
+                  	{% endif %}
+                  	<label for="form.logotype.id_for_label">Logotip</label></br>
+                  	{% if form.logotype.errors %}<label class="control-label" for="form.logotype.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.logotype.errors|striptags }}</label>{% endif %}
+                  	<div class="input-group">
+                    	<span class="input-group-addon"><i class="fa fa-link"></i></span>
+                    	{{ form.logotype|add_class:"form-control" }}
+                    	<p class="help-block">Nomé format .png</p>
+              	  	</div> 
+              	  	</div> 
+              	  	<hr>
+              	  	<h3> Dades Bancàries</h3>
+              	  	<div class="form-group {% if form.currentaccount.errors %}has-error{% endif %}">
+                  	<label for="form.currentaccount.id_for_label">Compte Corrent</label></br>
+                  	{% if form.currentaccount.errors %}<label class="control-label" for="form.currentaccount.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.currentaccount.errors|striptags }}</label>{% endif %}
+                  	{{ form.currentaccount|add_class:"form-control" }}
+                	</div>  
+              	  	<hr>
+              	  	<h3> Configuració Google Calendar (Opcional)</h3>
+              	  	<div class="form-group {% if form.idcalendar.errors %}has-error{% endif %}">
+                  	<label for="form.idcalendar.id_for_label">Id Calendari</label></br>
+                  	{% if form.idcalendar.errors %}<label class="control-label" for="form.idcalendar.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.idcalendar.errors|striptags }}</label>{% endif %}
+                  	{{ form.idcalendar|add_class:"form-control" }}
+                	</div>                    
                     
 
                   <div class="box-footer">

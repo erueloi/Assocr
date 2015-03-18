@@ -12,6 +12,7 @@ class Association(models.Model):
     telephone = models.IntegerField()
     idcalendar = models.CharField(max_length=128, null=True)
     users = models.ManyToManyField(User)
+    currentaccount = models.CharField(max_length=20, default=0)
  
     def __unicode__(self):
         return self.name + ' - ' + str(self.penyanumber)
@@ -20,7 +21,7 @@ class UF(models.Model):
     association = models.ForeignKey(Association)
     state = models.BooleanField(default=True)
     currentaccount = models.CharField(max_length=20, default=1)
-    typequote = models.IntegerField(default=1)
+    typequote = models.IntegerField(default=1)    
     #number = models.IntegerField(unique=True)
  
     def __unicode__(self):
