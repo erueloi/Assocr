@@ -1,4 +1,4 @@
-# Assocr
+# AssocR
 Gestió d'associacions
 
 Programa per a la Gestió d'Associacions. Enfocat a les Penyes Blaugrana.
@@ -10,6 +10,7 @@ Funcionalitats:
 * Tipus Cobraments (Efectiu, Bancari, ...)
 * Importació / Exportació de Dades de Socis
 * Generació de Rebuts
+* Històric de Rebuts
 * Generació de Fitxer SEPA XML per a tramitar rebuts/domiciliacions de quotes
 
 -- Under Construction --
