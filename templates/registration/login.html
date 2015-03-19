@@ -1,13 +1,29 @@
 {% extends 'registration/base.html' %}
 
+{% load staticfiles %}
+
 {% block bodyclass %} login-page {% endblock %}
 
 {% block content %}
 
-    <div class="login-box">
-      <div class="login-logo">
-        <a href="/assocr"><b>Assoc</b>R</a>
-      </div><!-- /.login-logo -->
+<div class="login-box">
+	<div class="row">
+		<div class="col-md-2 col-xs-2 col-s-2">
+		</div>
+		<div class="col-md-8 col-xs-8 col-s-8">			
+	      	<div class="media login-logo">
+			  <div class="media-left media-middle">
+			  	<img src="{% static "images/assocR.png" %}" style="width: 64px; height: 64px;">		    
+			  </div>
+			  <div class="media-body">
+			  	<a href="{% url 'index' %}" style="padding-left:5px;" class="pull-left" ><b>Assoc</b>R</a>
+			  </div>
+			</div> 
+		</div>
+		<div class="col-md-2 col-xs-2 col-s-2">
+		</div>
+	</div>
+         
       <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>              	  
         <form action="." method="post" role="form">

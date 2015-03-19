@@ -5,10 +5,15 @@ from assocr.forms import AssociationForm, UFForm, MemberForm, User_to_Associatio
 from assocr.models import Association, UF, Member, Receipts
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 @login_required
 def index(request):
-    association_list = Association.objects.all()
+    if request.user.is_superuser == True:
+        association_list = Association.objects.all()
+    else:
+        association_list = Association.objects.filter(users=request.user)
+        
     context_dict = {'associations': association_list}
     
     return render(request, 'index.html', context_dict)
@@ -27,8 +32,12 @@ def association(request, association_id):
         context_dict['totalmembers'] = Member.objects.all().filter(uf=ufs).count
         context_dict['totalBanc'] = totalBanc
         context_dict['totalEfectiu'] = totalufs - totalBanc
-        context_dict['percent_totalBanc'] = totalBanc * 100 / totalufs
-        context_dict['percent_totalEfectiu'] = (totalufs - totalBanc) * 100 / totalufs
+        if totalufs > 0:
+            context_dict['percent_totalBanc'] = totalBanc * 100 / totalufs
+            context_dict['percent_totalEfectiu'] = (totalufs - totalBanc) * 100 / totalufs
+        else:
+            context_dict['percent_totalBanc'] = 0
+            context_dict['percent_totalEfectiu'] = 0
                   
     except Association.DoesNotExist:
         pass
@@ -128,6 +137,8 @@ def add_member(request, association_id, uf_id, member_id=None):
         
     if member_id:
         editmember = Member.objects.get(id=member_id)
+        if editmember.imageprofile:
+            context_dict['url_image'] = editmember.imageprofile.url
     else:
         editmember = None
                         
@@ -222,7 +233,7 @@ import datetime
 def generate_receipts(request, association_id):
     
     assoc = Association.objects.get(id=association_id)
-    ufs = UF.objects.filter(association=assoc)
+    ufs = UF.objects.filter(association=assoc, state=True)
     i= 0
     for uf in ufs:
         try:
@@ -243,6 +254,44 @@ def generate_receipts(request, association_id):
     #messages.success(request, success_message)
     data_dict['success'] = success_message
     return JsonResponse(data_dict, safe=False)
+
+@login_required
+def cancel_uf(request, uf_id):
+    
+    u = UF.objects.get(id=uf_id)
+    u.state = False
+    u.save()
+    
+    data_dict = {}
+    
+    success_message = 'S\'ha donat de baixa la UF: ' + str(u.id) + ' correctament. Si vol pot tornar-la a activar.'
+    #messages.success(request, success_message)
+    #data_dict['success'] = success_message
+    #return JsonResponse(data_dict, safe=False)
+
+    messages.success(request, success_message)
+    url = reverse('assocr.views.association', args=(2,))
+    return HttpResponseRedirect(url) 
+
+@login_required
+def active_uf(request, uf_id):
+    
+    u = UF.objects.get(id=uf_id)
+    u.state = True
+    u.save()
+    
+    data_dict = {}
+    
+    success_message = 'la UF: ' + str(u.id) + ' s\'ha reactivat correctament.'
+    #messages.success(request, success_message)
+    #data_dict['success'] = success_message
+    #return JsonResponse(data_dict, safe=False)
+
+    #messages.success(request, success_message)
+    
+    messages.success(request, success_message)
+    url = reverse('assocr.views.association', args=(2,))
+    return HttpResponseRedirect(url)  
 
 @login_required
 def add_receipt(request, association_id, uf_id, receipt_id=None):

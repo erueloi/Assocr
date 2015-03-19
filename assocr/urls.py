@@ -33,6 +33,8 @@ urlpatterns += patterns('',
 urlpatterns += patterns('',
         url(r'^get_association_user/(?P<user_id>[\w\-]+)/$', views.get_association_user, name='get_association_user'),
         url(r'^generate_receipts/(?P<association_id>[\w\-]+)/$', views.generate_receipts, name='generate_receipts'),
+        url(r'^cancel_uf/(?P<uf_id>[\w\-]+)/$', views.cancel_uf, name='cancel_uf'),
+        url(r'^active_uf/(?P<uf_id>[\w\-]+)/$', views.active_uf, name='active_uf'),
         )
 
 #handler404 = views.page_not_found

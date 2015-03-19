@@ -49,6 +49,7 @@ class Member(models.Model):
     fcbmember = models.BooleanField(default=False)
     fcbnumber = models.IntegerField(null=True)
     email = models.EmailField(blank=True)
+    imageprofile = models.ImageField(upload_to='profile_images', blank=True, null=True)
   
     def __unicode__(self):
         return self.name + ' ' + self.firstsurname
@@ -57,7 +58,8 @@ class Member(models.Model):
 class Receipts(models.Model):
     uf = models.ForeignKey(UF)
     year = models.IntegerField()
-    state = models.IntegerField()  
+    state = models.IntegerField() 
+    observations = models.CharField(max_length=512, blank=True, null=True)
     
 
              

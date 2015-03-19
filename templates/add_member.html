@@ -190,14 +190,26 @@
 		                     </div>
 			          	</div>
 			          </div>	
-                    <div class="form-group {% if form.email.errors %}has-error{% endif %}">
-                      <label for="form.email.id_for_label">Email</label></br>
-                      {% if form.email.errors %}<label class="control-label" for="form.email.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.email.errors|striptags }}</label>{% endif %}
-                      <div class="input-group">
-	                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>	                   
-	                    {{ form.email|add_class:"form-control" }}
-                  	  </div>
-                    </div>                                 
+                      <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                      	<label for="form.email.id_for_label">Email</label></br>
+                      	{% if form.email.errors %}<label class="control-label" for="form.email.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.email.errors|striptags }}</label>{% endif %}
+                      	<div class="input-group">
+	                    	<span class="input-group-addon"><i class="fa fa-envelope"></i></span>	                   
+	                    	{{ form.email|add_class:"form-control" }}
+                  	  	</div>
+                   	  </div>
+                   	  <div class="form-group {% if form.imageprofile.errors %}has-error{% endif %}">
+	                  	{% if member_id %}
+	                		<img class="media-object" src="{% if url_image %} {{ url_image }} {% else %} {% static "images/noimage.png" %} {% endif %}" alt="logo" style="width: 64px; height: 64px;">
+	                  	{% endif %}
+	                  	<label for="form.imageprofile.id_for_label">Imatge de Perfil</label></br>
+	                  	{% if form.logotype.errors %}<label class="control-label" for="form.imageprofile.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.imageprofile.errors|striptags }}</label>{% endif %}
+	                  	<div class="input-group">
+	                    	<span class="input-group-addon"><i class="fa fa-link"></i></span>
+	                    	{{ form.imageprofile|add_class:"form-control" }}
+	                    	<p class="help-block">Formats: .png</p>
+	              	  	</div> 
+	              	  </div>                                  
                    </div><!-- /.box-body -->
 
                   <div class="box-footer">

@@ -7,14 +7,19 @@
 {% block titlepage %}Llista d'associacions{% endblock %} 
 
 <!-- Left Menu -->
-{% block firstleftmenuname %}Llista Associacions{% endblock %}
-
 {% block firstleftmenu %} 
-	{% if associations %}
+	<li class="active treeview">
+      <a href="#">
+        <i class="fa fa-dashboard"></i> <span>Llista Associacions</span> <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">        	
+      {% if associations %}
 	    {% for association in associations %}
 	    	<li><a href="{% url 'association' association.id %}"><i class="fa fa-circle-o"></i> {{ association.name }}</a></li>
 	     {% endfor %}
-	{% endif %}
+	  {% endif %} 
+      </ul>
+    </li>	
 {% endblock %}
 
 {% block calendarmenu %}

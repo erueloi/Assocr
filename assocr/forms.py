@@ -97,19 +97,21 @@ class MemberForm(forms.ModelForm):
     fcbmember = forms.BooleanField(required=False)
     fcbnumber = forms.IntegerField(max_value=9999999)
     email = forms.EmailField()
+    imageprofile = forms.ImageField(required=False)
        # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Member
-        fields = ('name', 'firstsurname', 'secondsurname', 'dni', 'birthdaydate', 'typeadress', 'adress', 'number', 'portal', 'ladder', 'floor', 'door', 'postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'fcbnumber', 'email')
+        fields = ('name', 'firstsurname', 'secondsurname', 'dni', 'birthdaydate', 'typeadress', 'adress', 'number', 'portal', 'ladder', 'floor', 'door', 'postalcode', 'city', 'province', 'country', 'telephone', 'fcbmember', 'fcbnumber', 'email', 'imageprofile')
         
     
 class ReceiptForm(forms.ModelForm):
     year = forms.IntegerField(max_value=9999)
     state = forms.ChoiceField(choices=STATECHOICES, widget=forms.RadioSelect) 
+    observations = forms.CharField(widget=forms.Textarea,required=False)
        # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model
         model = Receipts
-        fields = ('year', 'state')
+        fields = ('year', 'state', 'observations')
         

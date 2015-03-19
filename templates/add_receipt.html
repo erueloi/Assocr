@@ -71,6 +71,14 @@
 						</div>
 					 {% endfor %}
                     </div>
+                      <div class="form-group {% if form.observations.errors %}has-error{% endif %}">
+                      <label for="form.observations.id_for_label">Observacions</label></br>
+                      {% if form.observations.errors %}<label class="control-label" for="form.observations.id_for_label"><i class="fa fa-times-circle-o"></i> {{ form.observations.errors|striptags }}</label>{% endif %}
+                      <div class="input-group">
+	                    <span class="input-group-addon"><i class="fa fa-home"></i></span>
+	                    {{ form.observations|add_class:"form-control"|attr:"rows:3" }}
+                  	  </div>                      
+                    </div>
                  </div><!-- /.box-body -->
 
                   <div class="box-footer">

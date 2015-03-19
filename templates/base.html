@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>AssocR | {% block title %}Inici{% endblock %} </title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link rel="icon" href="{% static "images/assocR.png" %}" type="image/png" sizes="16x16">
     <!-- Bootstrap 3.3.2 -->
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
@@ -43,7 +44,14 @@
     <div class="wrapper">      
       <header class="main-header">
         <!-- Logo -->
-        <a href="{% url 'index' %}" class="logo"><b>Assoc</b>R</a>
+        <div class="logo">
+		  <div class="media-left media-middle">
+		  	<img src="{% static "images/assocR.png" %}" style="width: 32px; height: 32px;">		    
+		  </div>
+		  <div class="media-body">
+		  	<a href="{% url 'index' %}" style="color:#fff; padding-left:5px;" class="pull-left" ><b>Assoc</b>R</a>
+		  </div>
+		</div>        
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -294,7 +302,6 @@
             </div>
             <div class="pull-left info">
               <p>{{ user.username }}</p>
-
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
@@ -311,17 +318,9 @@
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MENÚ</li>
-            <li class="active treeview">
-              <a href="#">
-                <i class="fa fa-dashboard"></i> <span>{% block firstleftmenuname %}Dades Associació{% endblock %}</span> <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-              	{% block firstleftmenu %} 
-                <li><a href="index.html"><i class="fa fa-circle-o"></i> Socis</a></li>
-                <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Tipus Socis</a></li>
-                {% endblock %}
-              </ul>
-            </li>
+            
+            {% block firstleftmenu %}         
+            {% endblock %}
             
             {% block calendarmenu %}
             <li>
@@ -333,7 +332,7 @@
             {% endblock %}
             
             {% if user.is_superuser %}
-            <li class="active treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-user"></i> <span>Gestió d'Usuaris</span> <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -343,14 +342,7 @@
               </ul>
             </li>
             {% endif %}            
-            
-            <li>
-              <a href="pages/mailbox/mailbox.html">
-                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                <small class="label pull-right bg-yellow">12</small>
-              </a>
-            </li>
-            
+                        
             <li><a href="documentation/index.html"><i class="fa fa-book"></i> Documentation</a></li>
             <li class="header">Categories</li>
             <li><a href="#"><i class="fa fa-circle-o text-danger"></i> Penyes Blaugrana</a></li>
@@ -423,9 +415,9 @@
 
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> 0.2 Beta
+          <b>Version</b> 0.5 Beta
         </div>
-        <strong>Copyright &copy; 2015 <a href="http://almsaeedstudio.com">@erueloi</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2015 <a href="http://twitter.com/erueloi">@erueloi</a>.</strong> All rights reserved.
       </footer>
 
     </div><!-- ./wrapper -->

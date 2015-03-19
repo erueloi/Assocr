@@ -14,6 +14,16 @@
 	<li class="active">{{ member.name }} {{ member.firstsurname }} {{ member.secondsurname }}</li>
 {% endblock %}
 
+<!-- Left Menu -->
+{% block calendarmenu %}
+            <li >
+              <a href="{% url 'calendar' member.uf.association.id %}">
+                <i class="fa fa-calendar"></i> <span>Calendar</span>
+              </a>
+            </li>
+{% endblock %}
+<!-- End Left Menu -->
+
 {% block content %}
 
 		  <!-- title row -->
@@ -49,12 +59,12 @@
 					                    <dt>Correu Electònic</dt>
 					                    <dd>{{ member.email }}</dd>
 					                    <dt>Adreça</dt>
-					                    <dd>{{ member.adress }}</dd>
-					                    <dd>{{ member.postalcode }}, {{ member.city }} ({{ member.province }})</dd>
+					                    <dd>{{ member.adress|default_if_none:"" }}, {{ member.number|default_if_none:"" }} {{ member.portal|default_if_none:"" }} {{ member.ladder|default_if_none:"" }} {{ member.floor|default_if_none:"" }} {{ member.door|default_if_none:"" }} </dd>
+					                    <dd>{{ member.postalcode|default_if_none:"" }} {{ member.city|default_if_none:"" }} {% if member.province %}({{ member.province|default_if_none:"" }}) {% endif %}</dd>
 					                    <dt>País</dt>
-					                    <dd>{{ member.country }}</dd>
+					                    <dd>{{ member.country|default_if_none:"" }}</dd>
 					                    <dt>Telèfon</dt>
-					                    <dd>{{ member.telephone }}</dd>
+					                    <dd>{{ member.telephone|default_if_none:"" }}</dd>
 					              	</dl>
 					              </h4>
 				             </div><!-- /.col -->

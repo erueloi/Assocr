@@ -12,6 +12,16 @@
 	<li class="active">UF{{ uf.id }}</li>
 {% endblock %}
 
+<!-- Left Menu -->
+{% block calendarmenu %}
+            <li >
+              <a href="{% url 'calendar' uf.association.id %}">
+                <i class="fa fa-calendar"></i> <span>Calendar</span>
+              </a>
+            </li>
+{% endblock %}
+<!-- End Left Menu -->
+
 {% block content %}
 		<!-- Info row -->
         <div class="row">
@@ -21,7 +31,12 @@
 	                  <h4>
 		                <i class="fa fa-globe"></i> UF - <b>#{{ uf.id }}</b> 
 		                <a href="{% url 'edit_uf' uf.association.id uf.id %}" class="btn btn-default"><i class="fa fa-edit"></i> Editar</a>
-		                <a href="{% url 'edit_uf' uf.association.id uf.id %}" class="btn btn-default"><i class="fa fa-trash-o"></i> Donar de Baixa</a>		            
+		                {% if uf.state = True %}		                
+		                	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#CancelUF"><i class="fa fa-ban"></i> Donar de Baixa</button>
+		                {% else %}
+		                	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ActiveUF"><i class="fa fa-check-circle-o"></i> Activar</button>		                
+		                {% endif %}                			
+		                <a href="{% url 'edit_uf' uf.association.id uf.id %}" class="btn btn-default"><i class="fa fa-trash-o"></i> Eliminar</a>	            
 		              </h4> 
 	                  <div class="box-tools pull-right">
 	                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -111,6 +126,7 @@
           </div> <!-- /.col -->      
           </div> <!-- /.row -->
           
+          <!-- Receipts -->
           <div class="row">
           	<div class="col-xs-12">
           	 <div class="box box-danger">
@@ -131,6 +147,7 @@
 			                  <tr>
 			                    <th>Any</th>
 			                    <th>Estat</th>
+			                    <th>Observacions</th>
 			                  </tr>
 			                </thead>
 			                <tbody>
@@ -145,7 +162,8 @@
 				                    	<td><span class="label label-danger">Retornat</span></td> 
 				                    {% elif receipt.state == 3 %}		
 				                    	<td><span class="label label-success">Pagat</span></td>
-				                    {% endif %}                 
+				                    {% endif %}     
+				                    <td>{{ receipt.observations|default_if_none:"" }}</td>	            
 			                  	 </tr>
 			                  {% endfor %}            
 			                </tbody>
@@ -157,6 +175,44 @@
           </div> <!-- /.col -->      
           </div> <!-- /.row -->
 
+		  <!-- Modal Deactivate UF  -->
+		  <div class="modal fade" id="CancelUF" tabindex="-1" role="dialog" aria-labelledby="CancelUFLabel" aria-hidden="true">
+		  	<div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-ban"></i> Donar de Baixa</h4>
+			      </div>
+			      <div class="modal-body">
+			        Es donará de baixa la UF i tots els seus membre i rebuts.
+			        Això no significa que sigui eliminada i sempre la pot tornar a reactivar més endavant.
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			        <a href="{% url 'cancel_uf' uf.id %}" class="btn btn-danger"> Donar de Baixa</a>
+			      </div>
+			    </div>
+			 </div>
+		  </div>
+		  
+		  <!-- Modal Activate UF  -->
+		  <div class="modal fade" id="ActiveUF" tabindex="-1" role="dialog" aria-labelledby="ActiveUFLabel" aria-hidden="true">
+		  	<div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-check-circle-o"></i> Activar</h4>
+			      </div>
+			      <div class="modal-body">
+			        Es tornarà activar la UF i tots els seus membre i rebuts.
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			        <a href="{% url 'active_uf' uf.id %}" class="btn btn-success"> Activar</a>			        
+			      </div>
+			    </div>
+			 </div>
+		  </div>
 
         <div class="clearfix"></div>
         
@@ -167,7 +223,8 @@
 					});
 					
 					$("#members").dataTable();
-					})        	
+					});   								
+					     	
         </script>
         
 {% endblock %}

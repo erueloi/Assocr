@@ -11,12 +11,6 @@
 {% block breadcrumb %}<li class="active">{{ association.name }}</li>{% endblock %}
 
 <!-- Left Menu -->
-{% block firstleftmenuname %}Llista Associacions{% endblock %}
-
-{% block firstleftmenu %} 
-
-{% endblock %}
-
 {% block calendarmenu %}
             <li >
               <a href="{% url 'calendar' association.id %}">
@@ -24,7 +18,6 @@
               </a>
             </li>
 {% endblock %}
-
 <!-- End Left Menu -->
 
 
@@ -153,7 +146,7 @@
 					                </thead>
 					                <tbody>
 					                  {% for uf in Ufs %}
-					                	 <tr data-link="{% url 'uf' association.id uf.id %}">
+					                	 <tr data-link="{% url 'uf' association.id uf.id %}" {% if uf.state == False %} style="background-color:#F78181" {% endif %} >
 						                    <td>{{ uf.id }}</td>
 						                    <td>{% if uf.currentaccount == '0.0' or uf.currentaccount == '0' or uf.currentaccount == '' %} Efectiu {% else %} CC:  {{ uf.currentaccount }} {% endif %}</td>
 						                    <td>
@@ -213,7 +206,7 @@
 		                </div><!-- /.box-body -->
 		                <div class="box-footer no-padding">
 		                  <ul class="nav nav-pills nav-stacked">
-		                    <li><a href="#">Efectiu <span class="pull-right text-red"> {{ percent_totalEfectiu }}</span></a></li>
+		                    <li><a href="#">Efectiu <span class="pull-right text-red"> {{ percent_totalEfectiu }}%</span></a></li>
 		                    <li><a href="#">Banc <span class="pull-right text-green"> {{ percent_totalBanc }}%</span></a></li>
 						</ul>
 		                </div><!-- /.footer -->
@@ -227,7 +220,7 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-magic"></i>Generació Automatica de Rebuts</h4>
+		        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-magic"></i> Generació Automatica de Rebuts</h4>
 		      </div>
 		      <div class="modal-body">
 		        Es generaran els rebuts per a totes les Unitats Familiar actuals per a l'any actual ({% now "Y" %}).
